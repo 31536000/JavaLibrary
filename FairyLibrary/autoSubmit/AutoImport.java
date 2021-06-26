@@ -20,7 +20,7 @@ public class AutoImport {
 		java.util.regex.Pattern packagePatturn = java.util.regex.Pattern.compile("^package ");
 		java.util.regex.Pattern importPatturn = java.util.regex.Pattern.compile("^import ");
 		java.util.regex.Pattern className = java.util.regex.Pattern.compile("[A-Z$_][a-zA-Z0-9$_]{0,}");
-		String[] classPrefix = {"class", "enum", "interface", "abstract", "final", "static"};
+		String[] classPrefix = {"class", "enum", "interface", "abstract", "final", "static", "strictfp"};
 		java.util.HashMap<String, java.util.regex.Pattern> classPattern = new java.util.HashMap<>();
 		for (String i : classPrefix) classPattern.put(i, java.util.regex.Pattern.compile("public +" + i));
 		java.util.TreeSet<String> importSet = new java.util.TreeSet<>(java.util.Comparator.reverseOrder());
