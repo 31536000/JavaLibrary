@@ -1,4 +1,4 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
 /**
  * 演算が全順序であることを示すために使用するマーカー・インターフェースです。
@@ -8,11 +8,15 @@ package math.algebraic.order;
  */
 public interface TotalOrder<T> extends PartialOrder<T>, WeakOrder<T>, java.util.Comparator<T>{
 	/**
-	 * {@link java.util.Comparator}を受け取り、Chainへと拡張します。
-	 * @param comparator Chainへ拡張するComparator
-	 * @return Comparatorと同じ比較を提供するChain
+	 * {@link java.util.Comparator}を受け取り、TotalOrderへと拡張します。
+	 * @param comparator TotalOrderへ拡張するComparator
+	 * @return Comparatorと同じ比較を提供するTotalOrder
 	 */
 	public static <T> TotalOrder<T> comparing(java.util.Comparator<T> comparator) {
 		return (o1, o2) -> comparator.compare(o1, o2);
+	}
+	@Override
+	public default TotalOrder<T> reversed() {
+		return (o1, o2) -> compare(o2, o1);
 	}
 }

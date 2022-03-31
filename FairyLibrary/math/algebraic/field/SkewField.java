@@ -1,11 +1,11 @@
-package math.algebraic.field;
+package com._31536000.math.algebraic.field;
 
-import math.algebraic.domain.Domain;
-import math.algebraic.domain.PrimeElement;
-import math.algebraic.group.Abelian;
-import math.algebraic.group.Group;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.Domain;
+import com._31536000.math.algebraic.domain.PrimeElement;
+import com._31536000.math.algebraic.group.Abelian;
+import com._31536000.math.algebraic.group.Group;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * 演算が斜体であることを示すために使用するマーカー・インターフェースです。
@@ -21,9 +21,9 @@ public interface SkewField<T, A extends Abelian<T>, M extends Group<T>> extends 
 		return !right.equals(additiveIdentity());
 	}
 	/**
-	 * 逆元を返します。
-	 * @param element 逆元を求める値
-	 * @return 逆元
+	 * 乗法逆元を返します。
+	 * @param element 乗法逆元を求める値
+	 * @return 乗法逆元
 	 */
 	public default T inverse(T element) {
 		return getMultiplication().inverse(element);
@@ -31,7 +31,7 @@ public interface SkewField<T, A extends Abelian<T>, M extends Group<T>> extends 
 	@Override
 	public default T divide(T left, T right) {
 		try {
-			return multiply(left, inverse(right));
+			return times(left, inverse(right));
 		} catch (ArithmeticException e) {
 			throw new ArithmeticException("divide by Additive Identify");
 		}
@@ -42,7 +42,7 @@ public interface SkewField<T, A extends Abelian<T>, M extends Group<T>> extends 
 	 * @param right 関数の第二引数
 	 * @return left % right
 	 */
-	public default T reminder(T left, T right) {
+	public default T remainder(T left, T right) {
 		if (isDivisible(left, right)) throw new ArithmeticException("divide by Additive Identify");
 		return additiveIdentity();
 	}
@@ -53,7 +53,7 @@ public interface SkewField<T, A extends Abelian<T>, M extends Group<T>> extends 
 	 * @return leftとrightの最大公約数
 	 */
 	public default T gcd(T left, T right) {
-		return multipleIdentity();
+		return multiplicativeIdentity();
 	}
 	/**
 	 * lcmを計算します。
@@ -62,7 +62,7 @@ public interface SkewField<T, A extends Abelian<T>, M extends Group<T>> extends 
 	 * @return leftとrightの最小公倍数
 	 */
 	public default T lcm(T left, T right) {
-		return multipleIdentity();
+		return multiplicativeIdentity();
 	}
 	/**
 	 * 素因数分解した結果を返します。

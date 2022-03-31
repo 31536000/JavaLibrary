@@ -1,4 +1,4 @@
-package math.algebraic.group;
+package com._31536000.math.algebraic.group;
 
 /**
  * 演算が群であることを示すために使用するマーカー・インターフェースです。

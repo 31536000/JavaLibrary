@@ -1,4 +1,4 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
 /**
  * 比較不能な二つのオブジェクトを比較しようとしたときに生成されます。

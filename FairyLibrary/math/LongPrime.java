@@ -1,6 +1,6 @@
-package math;
+package com._31536000.math;
 
-import math.algebraic.domain.LongPrimeElement;
+import com._31536000.math.algebraic.domain.LongPrimeElement;
 
 /**
  * 素数を渡すためのクラスです。<br>

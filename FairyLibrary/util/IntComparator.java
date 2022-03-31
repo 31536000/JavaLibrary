@@ -1,4 +1,4 @@
-package util;
+package com._31536000.util;
 
 import java.util.Comparator;
 
@@ -8,11 +8,11 @@ import java.util.Comparator;
  *
  */
 public interface IntComparator extends Comparator<Integer> {
-	int compareAsInt(int o1, int o2);
+	int compare(int o1, int o2);
 
 	@Override
 	public default int compare(Integer o1, Integer o2) {
-		return compareAsInt(o1, o2);
+		return compare(o1, o2);
 	}
 
 	public static IntComparator naturalOrder() {
@@ -21,7 +21,7 @@ public interface IntComparator extends Comparator<Integer> {
 
 	@Override
 	public default IntComparator reversed() {
-		return (o1, o2) -> compareAsInt(o2, o1);
+		return (o1, o2) -> compare(o2, o1);
 	}
 
 	public static IntComparator reverseOrder() {

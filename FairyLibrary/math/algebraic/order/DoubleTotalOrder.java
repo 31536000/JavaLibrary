@@ -1,7 +1,6 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
-import java.util.Comparator;
-import util.DoubleComparator;
+import com._31536000.util.DoubleComparator;
 
 /**
  * 演算が全順序であることを示すために使用するマーカー・インターフェースです。
@@ -11,15 +10,15 @@ import util.DoubleComparator;
 public interface DoubleTotalOrder extends TotalOrder<Double>, DoublePartialOrder, DoubleConnexity, DoubleComparator{
 	@Override
 	public default int compare(Double o1, Double o2) {
-		return compareAsDouble(o1, o2);
+		return compare((double)o1, (double)o2);
 	}
 	/**
-	 * {@link Comparator}を受け取り、TotalOrderへと拡張します。
-	 * @param comparator Chainへ拡張するComparator
+	 * {@link DoubleComparator}を受け取り、TotalOrderへと拡張します。
+	 * @param comparator TotalOrderへ拡張するComparator
 	 * @return Comparatorと同じ比較を提供するTotalOrder
 	 */
 	public static DoubleTotalOrder comparing(DoubleComparator comparator) {
-		return (o1, o2) -> comparator.compareAsDouble(o1, o2);
+		return (o1, o2) -> comparator.compare(o1, o2);
 	}
 	/**
 	 * 自然な順序で比較するTotalOrderを返します。
@@ -38,6 +37,6 @@ public interface DoubleTotalOrder extends TotalOrder<Double>, DoublePartialOrder
 	}
 	@Override
 	public default DoubleTotalOrder reversed() {
-		return (o1, o2) -> compareAsDouble(o2, o1);
+		return (o1, o2) -> compare(o2, o1);
 	}
 }

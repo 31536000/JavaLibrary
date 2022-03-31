@@ -1,4 +1,4 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
 /**
  * 素元を提供します。
@@ -10,7 +10,16 @@ public interface LongPrimeElement extends PrimeElement<Long> {
 	public default Long getPrimeElement() {
 		return getPrimeElementAsLong();
 	}
+	/**
+	 * 自身が保持する素元を返します。
+	 * @return 素元
+	 */
 	public long getPrimeElementAsLong();
+	/**
+	 * elementを保持したLongPrimeElementを返します。
+	 * @param element 素元
+	 * @return elementを保持するLongPrimeElement
+	 */
 	public static LongPrimeElement create(final long element) {
 		return () -> element;
 	}

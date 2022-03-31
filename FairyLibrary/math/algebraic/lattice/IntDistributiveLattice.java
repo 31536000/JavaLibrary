@@ -1,8 +1,9 @@
-package math.algebraic.lattice;
+package com._31536000.math.algebraic.lattice;
 
-import math.algebraic.group.IntSemilattice;
-import math.algebraic.ring.IntCommutativeSemiring;
-import math.algebraic.ring.IntIdempotentSemiring;
+import com._31536000.math.algebraic.group.IntSemilattice;
+import com._31536000.math.algebraic.order.IncomparableException;
+import com._31536000.math.algebraic.ring.IntCommutativeSemiring;
+import com._31536000.math.algebraic.ring.IntIdempotentSemiring;
 
 /**
  * 演算が分配束に属することを示すために使用するマーカー・インターフェースです。
@@ -14,19 +15,46 @@ import math.algebraic.ring.IntIdempotentSemiring;
  */
 public interface IntDistributiveLattice<A extends IntSemilattice, M extends IntSemilattice> extends DistributiveLattice<Integer, A, M>, IntIdempotentSemiring<A, M>, IntCommutativeSemiring<A, M>, IntLattice<A, M>{
 	@Override
-	default Integer add(Integer left, Integer right) {
-		return addAsInt(left, right);
+	default Integer plus(Integer left, Integer right) {
+		return plusAsInt(left, right);
 	}
 	@Override
-	default Integer multiply(Integer left, Integer right) {
-		return multiplyAsInt(left, right);
+	public default int plusAsInt(int left, int right) {
+		return getAddition().applyAsInt(left, right);
+	}
+	@Override
+	default Integer times(Integer left, Integer right) {
+		return timesAsInt(left, right);
+	}
+	@Override
+	public default int timesAsInt(int left, int right) {
+		return getMultiplication().applyAsInt(left, right);
 	}
 	@Override
 	default Integer additiveIdentity() {
 		return additiveIdentityAsInt();
 	}
 	@Override
-	default Integer multipleIdentity() {
-		return multipleIdentityAsInt();
+	public default int additiveIdentityAsInt() {
+		return getAddition().identityAsInt();
+	}
+	@Override
+	default Integer multiplicativeIdentity() {
+		return multiplicativeIdentityAsInt();
+	}
+	@Override
+	public default int multiplicativeIdentityAsInt() {
+		return getMultiplication().identityAsInt();
+	}
+	@Override
+	default int compare(Integer o1, Integer o2) {
+		return compare((int)o1, (int)o2);
+	}
+	@Override
+	default int compare(int o1, int o2) {
+		int o3 = getMultiplication().applyAsInt(o1, o2);
+		if (o1 == o3) return o2 == o3 ? 0 : -1;
+		if (o2 == o3) return 1;
+		throw new IncomparableException();
 	}
 }

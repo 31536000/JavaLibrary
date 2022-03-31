@@ -1,4 +1,4 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
 /**
  * 演算が同値関係であることを示すために使用するマーカー・インターフェースです。

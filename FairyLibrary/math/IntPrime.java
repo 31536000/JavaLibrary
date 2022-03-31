@@ -1,6 +1,6 @@
-package math;
+package com._31536000.math;
 
-import math.algebraic.domain.IntPrimeElement;
+import com._31536000.math.algebraic.domain.IntPrimeElement;
 
 /**
  * 素数を渡すためのクラスです。<br>

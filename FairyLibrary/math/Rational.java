@@ -1,10 +1,10 @@
-package math;
+package com._31536000.math;
 
-import math.algebraic.domain.LongEuclideanDomain;
-import math.algebraic.group.Abelian;
-import math.algebraic.group.LongAbelian;
-import math.algebraic.group.LongCommutativeMonoid;
-import math.algebraic.order.TotalOrder;
+import com._31536000.math.algebraic.domain.LongEuclideanDomain;
+import com._31536000.math.algebraic.group.Abelian;
+import com._31536000.math.algebraic.group.LongAbelian;
+import com._31536000.math.algebraic.group.LongCommutativeMonoid;
+import com._31536000.math.algebraic.order.TotalOrder;
 
 public class Rational extends
 		Fraction<Long, LongAbelian, LongCommutativeMonoid, LongEuclideanDomain<LongAbelian, LongCommutativeMonoid>, Rational>
@@ -46,7 +46,7 @@ public class Rational extends
 	 */
 	@Override
 	public Rational add(Rational val) {
-		return add(this, val);
+		return plus(this, val);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Rational extends
 	 * @return left + right
 	 */
 	@Override
-	public Rational add(Rational left, Rational right) {
+	public Rational plus(Rational left, Rational right) {
 		return new Rational(left.numerator * right.denominator + left.denominator * right.numerator,
 				left.denominator * right.denominator);
 	}
@@ -68,7 +68,7 @@ public class Rational extends
 	 */
 	@Override
 	public Rational subtract(Rational val) {
-		return subtract(this, val);
+		return minus(this, val);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class Rational extends
 	 * @return left - right
 	 */
 	@Override
-	public Rational subtract(Rational left, Rational right) {
+	public Rational minus(Rational left, Rational right) {
 		return new Rational(left.numerator * right.denominator - left.denominator * right.numerator,
 				left.denominator * right.denominator);
 	}
@@ -90,7 +90,7 @@ public class Rational extends
 	 */
 	@Override
 	public Rational multiply(Rational val) {
-		return multiply(this, val);
+		return times(this, val);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Rational extends
 	 * @return left * right
 	 */
 	@Override
-	public Rational multiply(Rational left, Rational right) {
+	public Rational times(Rational left, Rational right) {
 		return new Rational(left.numerator * right.numerator, left.denominator * right.denominator);
 	}
 
@@ -199,7 +199,7 @@ public class Rational extends
 
 	@Override
 	protected LongEuclideanDomain<LongAbelian, LongCommutativeMonoid> getOperator() {
-		return MathUtil.getLongOperator();
+		return MathUtility.getLongOperator();
 	}
 
 	public static Rational create(long numerator, long denominator) {

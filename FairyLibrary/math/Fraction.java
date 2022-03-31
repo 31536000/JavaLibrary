@@ -1,9 +1,9 @@
-package math;
+package com._31536000.math;
 
-import math.algebraic.domain.IntegralDomain;
-import math.algebraic.field.Field;
-import math.algebraic.group.Abelian;
-import math.algebraic.group.CommutativeMonoid;
+import com._31536000.math.algebraic.domain.IntegralDomain;
+import com._31536000.math.algebraic.field.Field;
+import com._31536000.math.algebraic.group.Abelian;
+import com._31536000.math.algebraic.group.CommutativeMonoid;
 
 public abstract class Fraction<T, A extends Abelian<T>, M extends CommutativeMonoid<T>, D extends IntegralDomain<T, A, M>, E extends Fraction<T, A, M, D, E>>
 		implements Field<E, Abelian<E>, Abelian<E>> {
@@ -33,7 +33,7 @@ public abstract class Fraction<T, A extends Abelian<T>, M extends CommutativeMon
 	public abstract E add(E val);
 
 	@Override
-	public abstract E add(E left, E right);
+	public abstract E plus(E left, E right);
 
 	/**
 	 * 値が(this-val)であるFractionを返します。
@@ -43,7 +43,7 @@ public abstract class Fraction<T, A extends Abelian<T>, M extends CommutativeMon
 	public abstract E subtract(E val);
 
 	@Override
-	public abstract E subtract(E left, E right);
+	public abstract E minus(E left, E right);
 
 	/**
 	 * 値が(this*val)であるFractionを返します。
@@ -53,7 +53,7 @@ public abstract class Fraction<T, A extends Abelian<T>, M extends CommutativeMon
 	public abstract E multiply(E val);
 
 	@Override
-	public abstract E multiply(E left, E right);
+	public abstract E times(E left, E right);
 
 	/**
 	 * 値が(this/val)であるFractionを返します。
@@ -64,7 +64,7 @@ public abstract class Fraction<T, A extends Abelian<T>, M extends CommutativeMon
 
 	@Override
 	public E divide(E left, E right) {
-		return multiply(left, inverse(right));
+		return times(left, inverse(right));
 	}
 
 	/**

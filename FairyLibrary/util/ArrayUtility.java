@@ -1,6 +1,6 @@
-package util;
+package com._31536000.util;
 
-import util.collect.IntRange;
+import com._31536000.util.collect.IntRange;
 
 /**
  * このクラスは配列に対する様々な操作を提供します。

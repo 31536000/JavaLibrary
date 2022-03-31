@@ -1,6 +1,6 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
-import util.LongComparator;
+import com._31536000.util.LongComparator;
 
 /**
  * 演算が全順序であることを示すために使用するマーカー・インターフェースです。
@@ -10,7 +10,7 @@ import util.LongComparator;
 public interface LongTotalOrder extends TotalOrder<Long>, LongPartialOrder, LongConnexity, LongComparator{
 	@Override
 	default int compare(Long o1, Long o2) {
-		return compareAsLong(o1, o2);
+		return compare((long)o1, (long)o2);
 	}
 	/**
 	 * {@link LongComparator}を受け取り、TotalOrderへと拡張します。
@@ -18,7 +18,7 @@ public interface LongTotalOrder extends TotalOrder<Long>, LongPartialOrder, Long
 	 * @return Comparatorと同じ比較を提供するTotalOrder
 	 */
 	public static LongTotalOrder comparing(LongComparator comparator) {
-		return (o1, o2) -> comparator.compareAsLong(o1, o2);
+		return (o1, o2) -> comparator.compare(o1, o2);
 	}
 	/**
 	 * 自然な順序で比較するTotalOrderを返します。
@@ -37,6 +37,6 @@ public interface LongTotalOrder extends TotalOrder<Long>, LongPartialOrder, Long
 	}
 	@Override
 	public default LongTotalOrder reversed() {
-		return (o1, o2) -> compareAsLong(o2, o1);
+		return (o1, o2) -> compare(o2, o1);
 	}
 }

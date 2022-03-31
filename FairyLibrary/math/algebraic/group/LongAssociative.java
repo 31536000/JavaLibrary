@@ -1,13 +1,11 @@
-package math.algebraic.group;
-
-import java.util.function.LongBinaryOperator;
+package com._31536000.math.algebraic.group;
 
 /**
  * 演算が結合法則を満たすことを示すために使用するマーカー・インターフェースです。
  * これは、{@link Associative}に対してプリミティブ型特殊化(long向け)を行ったものです。
  * @author 31536000
  */
-public interface LongAssociative extends Associative<Long>, LongBinaryOperator{
+public interface LongAssociative extends Associative<Long>, LongMagma{
 	@Override
 	public default Long apply(Long t, Long u) {
 		return applyAsLong(t, u);

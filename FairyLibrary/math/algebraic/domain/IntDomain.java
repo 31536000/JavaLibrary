@@ -1,8 +1,8 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntMonoid;
-import math.algebraic.ring.IntRing;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntMonoid;
+import com._31536000.math.algebraic.ring.IntRing;
 
 /**
  * 演算が域であることを示すために使用するマーカー・インターフェースです。
@@ -15,7 +15,7 @@ import math.algebraic.ring.IntRing;
 public interface IntDomain<A extends IntAbelian, M extends IntMonoid> extends Domain<Integer, A, M>, IntRing<A, M>{
 	@Override
 	public default boolean isDivisible(Integer left, Integer right) {
-		return isDivisibleAsInt(left, right);
+		return isDivisible((int)left, (int)right);
 	}
 	/**
 	 * leftをrightで割ることが可能か判定します。
@@ -23,7 +23,7 @@ public interface IntDomain<A extends IntAbelian, M extends IntMonoid> extends Do
 	 * @param right 関数の第二引数
 	 * @return left / rightが定義されているならtrue
 	 */
-	public default boolean isDivisibleAsInt(int left, int right) {
+	public default boolean isDivisible(int left, int right) {
 		try {
 			divideAsInt(left, right);
 		} catch (ArithmeticException e) {

@@ -1,7 +1,7 @@
-package math.algebraic.ring;
+package com._31536000.math.algebraic.ring;
 
-import math.algebraic.group.Abelian;
-import math.algebraic.group.CommutativeMonoid;
+import com._31536000.math.algebraic.group.Abelian;
+import com._31536000.math.algebraic.group.CommutativeMonoid;
 
 /**
  * 演算が可換環に属することを示すために使用するマーカー・インターフェースです。

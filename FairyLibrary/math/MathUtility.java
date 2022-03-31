@@ -1,15 +1,15 @@
-package math;
+package com._31536000.math;
 
-import math.algebraic.domain.IntEuclideanDomain;
-import math.algebraic.domain.IntPrimeElement;
-import math.algebraic.domain.LongEuclideanDomain;
-import math.algebraic.domain.LongPrimeElement;
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntCommutativeMonoid;
-import math.algebraic.group.LongAbelian;
-import math.algebraic.group.LongCommutativeMonoid;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.IntEuclideanDomain;
+import com._31536000.math.algebraic.domain.IntPrimeElement;
+import com._31536000.math.algebraic.domain.LongEuclideanDomain;
+import com._31536000.math.algebraic.domain.LongPrimeElement;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntCommutativeMonoid;
+import com._31536000.math.algebraic.group.LongAbelian;
+import com._31536000.math.algebraic.group.LongCommutativeMonoid;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * このクラスは、数学的な様々な演算を提供します。
@@ -51,8 +51,8 @@ public class MathUtility {
 			long z = xl * l;
 			z = xl * h + xh * l + (z >>> 31);
 			z = xh * h + (z >>> 31);
-			final int ret = (int) (x - z * mod);
-			return ret >= mod ? ret - mod : ret;
+			int ret = (int) (x - z * mod);
+			return ret < 0 || ret >= mod ? ret - mod : ret;
 		}
 	}
 
@@ -175,32 +175,16 @@ public class MathUtility {
 	 * @return n * m % mod
 	 */
 	public static long multiply(long n, long m, long mod) {
-		long ans = 0;
-		if (mod > 1L << 62) {
-			if (n >= mod) n -= mod;
-			while(m != 0) {
-				if ((m & 1) != 0) {
-					ans += n;
-					if (ans < 0 || ans >= mod) ans -= mod;
-				}
-				m >>>= 1;
-				n <<= 1;
-				if (n < 0 || n >= mod) n -= mod;
-			}
-			return ans;
-		} else {
-			n %= mod;
-			while(m != 0) {
-				if ((m & 1) != 0) {
-					ans += n;
-					if (ans >= mod) ans -= mod;
-				}
-				m >>>= 1;
-				n <<= 1;
-				if (n >= mod) n -= mod;
-			}
-		}
-		return ans;
+		return multiply(n, m, java.math.BigInteger.valueOf(mod));
+	}
+
+	public static long multiply(long n, long m, java.math.BigInteger mod) {
+		return java.math.BigInteger.valueOf(n).multiply(java.math.BigInteger.valueOf(m)).mod(mod).longValue();
+	}
+
+	public static long square(long n, java.math.BigInteger mod) {
+		java.math.BigInteger x = java.math.BigInteger.valueOf(n);
+		return x.multiply(x).mod(mod).longValue();
 	}
 
 	/**
@@ -423,7 +407,7 @@ public class MathUtility {
 	 * @return 最小公倍数
 	 */
 	public static long lcm(int a, int b) {
-		return a / gcd(a, b) * b;
+		return a / gcd(a, b) * (long)b;
 	}
 
 	/**
@@ -612,19 +596,20 @@ public class MathUtility {
 	}
 
 	private static boolean isSPRP(long n, long a) {
+		java.math.BigInteger m = java.math.BigInteger.valueOf(n);
 		long d = n - 1;
 		int s = Long.numberOfTrailingZeros(d);
 		d >>= s;
 		long cur = 1, pw = d;
 		do {
-			if ((pw & 1) != 0) cur = multiply(cur, a, n);
-			a = multiply(a, a, n);
+			if ((pw & 1) != 0) cur = multiply(cur, a, m);
+			a = square(a, m);
 			pw >>= 1;
 		} while(pw != 0);
 		if (cur == 1) return true;
 		while(s --> 0) {
 			if (cur == n - 1) return true;
-			cur = multiply(cur, cur, n);
+			cur = square(cur, m);
 		}
 		return false;
 	}
@@ -690,7 +675,7 @@ public class MathUtility {
 	}
 
 	private static boolean checkPrime(final long x) {
-		if (x < 121) return x > 1;
+		if (x <= Integer.MAX_VALUE) return checkPrime((int)x);
 		if (!isSPRP(x, 2)) return false;
 		if (!isSPRP(x, 325)) return false;
 		if (!isSPRP(x, 9375)) return false;
@@ -698,24 +683,6 @@ public class MathUtility {
 		if (!isSPRP(x, 450775)) return false;
 		if (!isSPRP(x, 9780504)) return false;
 		return isSPRP(x, 1795265022);
-	}
-
-	private static int pollardRho(final int x, final int c) {
-		final Barrett barrett = new Barrett(x);
-		return pollardRho(x, c, barrett);
-	}
-
-	private static int pollardRho(final int x, final int c, final Barrett barrett) {
-		int next = 4, i = 1;
-		int n = 2, m = 2, d = 1;
-		do {
-			if ( ++i == next) {
-				m = n;
-				next <<= 1;
-			}
-			if ((n = barrett.reduce((long)n * n + c)) == m) return pollardRho(x, c+1, barrett);
-		} while ((d = gcd(Math.abs(n - m), x)) == 1);
-		return d;
 	}
 
 	/**
@@ -748,36 +715,82 @@ public class MathUtility {
 			for (x /= 7;x % 7 == 0;x /= 7) ++ c;
 			ret.add(new IntPrime(7), c);
 		}
-		int p, count;
-		while(x != 1) {
-			for (p = x;!checkPrime(p);p = pollardRho(p, 1));
-			Barrett barrett = new Barrett(p);
-			count = 1;
-			for (x /= p;barrett.reduce(x) == 0;x /= p)++ count;
-			ret.add(new IntPrime(p), count);
-		}
+		getPrimeFactorization(x, x, ret);
 		return ret;
 	}
 
-	private static long pollardRho(final long x, final int c) {
-		int next = 4, i = 1;
-		long n = 2, m = 2, d = 1;
-		do {
-			if ( ++i == next) {
-				m = n;
-				next <<= 1;
+	private static int getPrimeFactorization(int x, int t, MultiSet<IntPrime> set) {
+		if (t == 1) return x;
+		if (checkPrime(t)) {
+			set.add(new IntPrime(t), 1);
+			return 1;
+		}
+		int p = pollardRho(t, (int)(Math.random() * (t - 1)) + 1);
+		if (checkPrime(p)) {
+			int count = 1;
+			for (x /= p;x % p == 0;x /= p) ++ count;
+			set.add(new IntPrime(p), count);
+		} else {
+			x = getPrimeFactorization(x, p, set);
+		}
+		return getPrimeFactorization(x, x, set);
+	}
+
+	private static int pollardRho(final int n, int c) {
+		Barrett mod = new Barrett(n);
+		int x = 0, y = x, t, q = 1;
+		while(true) {
+			for (int k = 2;k <= 64;k <<= 1, y = x, q = 1) {
+				for (int i = 0;i < k;++ i) {
+					x = mod.reduce(x * x + c);
+					if (x < 0 || x >= n) x -= n;
+					q = mod.reduce((long)q * Math.abs(x - y));
+				}
+				if ((t = gcd(q, n)) != 1) return t;
 			}
-			n = multiply(n, n, x);
-			n += c;
-			if (n < 0 || n >= x) n -= x;
-			if (n == m) return pollardRho(x, c+1);
-		} while ((d = gcd(Math.abs(n - m), x)) == 1);
-		return d;
+			for (int k = 128;k > 0;k <<= 1, y = x, q = 1) {
+				for (int j = 0;j <= k;j += 128) {
+					for (int i = 0;i < 128;++ i) {
+						x = mod.reduce(x * x + c);
+						if (x < 0 || x >= n) x -= n;
+						q = mod.reduce((long)q * Math.abs(x - y));
+					}
+					if ((t = gcd(q, n)) != 1) return t;
+				}
+			}
+			++ c;
+		}
+	}
+
+	private static long pollardRho(final long n, long c) {
+		java.math.BigInteger mod = java.math.BigInteger.valueOf(n);
+		long x = 0, y = x, t, q = 1;
+		while(true) {
+			for (int k = 2;k <= 64;k <<= 1, y = x, q = 1) {
+				for (int i = 0;i < k;++ i) {
+					x = square(x, mod) + c;
+					if (x < 0 || x >= n) x -= n;
+					q = multiply(q, Math.abs(x - y), mod);
+				}
+				if ((t = gcd(q, n)) != 1) return t;
+			}
+			for (int k = 128;k > 0;k <<= 1, y = x, q = 1) {
+				for (int j = 0;j <= k;j += 128) {
+					for (int i = 0;i < 128;++ i) {
+						x = square(x, mod) + c;
+						if (x < 0 || x >= n) x -= n;
+						q = multiply(q, Math.abs(x - y), mod);
+					}
+					if ((t = gcd(q, n)) != 1) return t;
+				}
+			}
+			++ c;
+		}
 	}
 
 	/**
 	 * 与えられた値を素因数分解した結果を返します。
-	 * @complexity O(x^(1/4) log x)
+	 * @complexity O(x^(1/4))
 	 * @param x 素因数分解する値
 	 * @return 素因数分解した結果
 	 */
@@ -805,15 +818,25 @@ public class MathUtility {
 			for (x /= 7;x % 7 == 0;x /= 7) ++ c;
 			ret.add(new LongPrime(7L), c);
 		}
-		long p;
-		int count;
-		while(x != 1) {
-			for (p = x;!checkPrime(p);p = pollardRho(p, 1));
-			count = 1;
-			for (x /= p;x % p == 0;x /= p)++ count;
-			ret.add(new LongPrime(p), count);
-		}
+		getPrimeFactorization(x, x, ret);
 		return ret;
+	}
+
+	private static long getPrimeFactorization(long x, long t, MultiSet<LongPrime> set) {
+		if (t == 1) return x;
+		if (checkPrime(t)) {
+			set.add(new LongPrime(t), 1);
+			return 1;
+		}
+		long p = t <= Integer.MAX_VALUE ? pollardRho(t, (int)(Math.random() * (t - 1)) + 1) : pollardRho(t, (long)(Math.random() * (t - 1)) + 1);
+		if (checkPrime(p)) {
+			int count = 1;
+			for (x /= p;x % p == 0;x /= p) ++ count;
+			set.add(new LongPrime(p), count);
+		} else {
+			x = getPrimeFactorization(x, p, set);
+		}
+		return getPrimeFactorization(x, x, set);
 	}
 
 	private static class AdditionInt implements IntAbelian {
@@ -873,7 +896,7 @@ public class MathUtility {
 		}
 
 		@Override
-		public int reminderAsInt(int left, int right) {
+		public int remainderAsInt(int left, int right) {
 			return left % right;
 		}
 	}
@@ -945,7 +968,7 @@ public class MathUtility {
 		}
 
 		@Override
-		public long reminderAsLong(long left, long right) {
+		public long remainderAsLong(long left, long right) {
 			return left % right;
 		}
 	}

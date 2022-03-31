@@ -1,8 +1,8 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
-import math.algebraic.group.Abelian;
-import math.algebraic.group.Monoid;
-import math.algebraic.ring.Ring;
+import com._31536000.math.algebraic.group.Abelian;
+import com._31536000.math.algebraic.group.Monoid;
+import com._31536000.math.algebraic.ring.Ring;
 
 /**
  * 演算が域であることを示すために使用するマーカー・インターフェースです。

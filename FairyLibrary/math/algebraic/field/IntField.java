@@ -1,10 +1,10 @@
-package math.algebraic.field;
+package com._31536000.math.algebraic.field;
 
-import math.algebraic.domain.IntEuclideanDomain;
-import math.algebraic.domain.IntPrimeElement;
-import math.algebraic.group.IntAbelian;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.IntEuclideanDomain;
+import com._31536000.math.algebraic.domain.IntPrimeElement;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * 演算が体であることを示すために使用するマーカー・インターフェースです。
@@ -17,10 +17,10 @@ import util.collect.MultiSet;
 public interface IntField<A extends IntAbelian, M extends IntAbelian> extends Field<Integer, A, M>, IntSkewField<A, M>, IntEuclideanDomain<A, M>{
 	@Override
 	public default boolean isDivisible(Integer left, Integer right) {
-		return isDivisibleAsInt(left, right);
+		return isDivisible((int)left, (int)right);
 	}
 	@Override
-	public default boolean isDivisibleAsInt(int left, int right) {
+	public default boolean isDivisible(int left, int right) {
 		return right != additiveIdentityAsInt();
 	}
 	@Override
@@ -30,18 +30,18 @@ public interface IntField<A extends IntAbelian, M extends IntAbelian> extends Fi
 	@Override
 	public default int divideAsInt(int left, int right) {
 		try {
-			return multiplyAsInt(left, getMultiplication().inverseAsInt(right));
+			return timesAsInt(left, getMultiplication().inverseAsInt(right));
 		} catch (ArithmeticException e) {
 			throw new ArithmeticException("divide by Additive Identify");
 		}
 	}
 	@Override
-	public default Integer reminder(Integer left, Integer right) {
+	public default Integer remainder(Integer left, Integer right) {
 		return reminderAsInt(left, right);
 	}
 	@Override
-	public default int reminderAsInt(int left, int right) {
-		if (isDivisibleAsInt(left, right)) throw new ArithmeticException("divide by Additive Identify");
+	public default int remainderAsInt(int left, int right) {
+		if (isDivisible(left, right)) throw new ArithmeticException("divide by Additive Identify");
 		return additiveIdentityAsInt();
 	}
 	@Override
@@ -50,7 +50,7 @@ public interface IntField<A extends IntAbelian, M extends IntAbelian> extends Fi
 	}
 	@Override
 	public default int gcdAsInt(int left, int right) {
-		return multipleIdentityAsInt();
+		return multiplicativeIdentityAsInt();
 	}
 	@Override
 	public default Integer lcm(Integer left, Integer right) {
@@ -58,7 +58,7 @@ public interface IntField<A extends IntAbelian, M extends IntAbelian> extends Fi
 	}
 	@Override
 	public default int lcmAsInt(int left, int right) {
-		return multipleIdentityAsInt();
+		return multiplicativeIdentityAsInt();
 	}
 	@Override
 	public default MultiSet<? extends IntPrimeElement> getPrimeFactorization(Integer x) {

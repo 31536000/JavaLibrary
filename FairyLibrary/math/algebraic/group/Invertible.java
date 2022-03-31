@@ -1,6 +1,4 @@
-package math.algebraic.group;
-
-import java.util.function.BinaryOperator;
+package com._31536000.math.algebraic.group;
 
 /**
 * この演算が逆元を持つことを示すために使用するマーカー・インターフェースです。
@@ -8,7 +6,7 @@ import java.util.function.BinaryOperator;
  *
  * @param <T> 二項演算の型
  */
-public interface Invertible<T> extends BinaryOperator<T>{
+public interface Invertible<T> extends Magma<T> {
 	/**
 	 * 逆元を返します。
 	 * @param element 逆元を求める値

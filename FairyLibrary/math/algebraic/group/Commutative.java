@@ -1,6 +1,4 @@
-package math.algebraic.group;
-
-import java.util.function.BinaryOperator;
+package com._31536000.math.algebraic.group;
 
 /**
  * 演算が交換法則を満たすことを示すために使用するマーカー・インターフェースです。
@@ -8,6 +6,6 @@ import java.util.function.BinaryOperator;
  *
  * @param <T> 二項演算の型
  */
-public interface Commutative<T> extends BinaryOperator<T>{
+public interface Commutative<T> extends Magma<T> {
 
 }

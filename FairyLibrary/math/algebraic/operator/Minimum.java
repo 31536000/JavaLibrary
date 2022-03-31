@@ -1,9 +1,8 @@
-package math.algebraic.operator;
+package com._31536000.math.algebraic.operator;
 
-import math.algebraic.group.CommutativeMonoid;
-import math.algebraic.group.Idempotent;
+import com._31536000.math.algebraic.group.Semilattice;
 
-public class Minimum<T extends Comparable<T>> implements CommutativeMonoid<T>, Idempotent<T> {
+public class Minimum<T extends Comparable<T>> implements Semilattice<T> {
 
 	@Override
 	public T apply(T left, T right) {
@@ -15,11 +14,6 @@ public class Minimum<T extends Comparable<T>> implements CommutativeMonoid<T>, I
 	@Override
 	public T identity() {
 		return null;
-	}
-
-	@Override
-	public T hyper(T element, int repeat) {
-		return element;
 	}
 
 }

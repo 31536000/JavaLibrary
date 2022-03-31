@@ -1,10 +1,10 @@
-package math.algebraic.field;
+package com._31536000.math.algebraic.field;
 
-import math.algebraic.domain.LongEuclideanDomain;
-import math.algebraic.domain.LongPrimeElement;
-import math.algebraic.group.LongAbelian;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.LongEuclideanDomain;
+import com._31536000.math.algebraic.domain.LongPrimeElement;
+import com._31536000.math.algebraic.group.LongAbelian;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * 演算が体であることを示すために使用するマーカー・インターフェースです。
@@ -17,10 +17,10 @@ import util.collect.MultiSet;
 public interface LongField<A extends LongAbelian, M extends LongAbelian> extends Field<Long, A, M>, LongSkewField<A, M>, LongEuclideanDomain<A, M>{
 	@Override
 	public default boolean isDivisible(Long left, Long right) {
-		return isDivisibleAsLong(left, right);
+		return isDivisible((long)left, (long)right);
 	}
 	@Override
-	public default boolean isDivisibleAsLong(long left, long right) {
+	public default boolean isDivisible(long left, long right) {
 		return right != additiveIdentityAsLong();
 	}
 	@Override
@@ -30,18 +30,18 @@ public interface LongField<A extends LongAbelian, M extends LongAbelian> extends
 	@Override
 	public default long divideAsLong(long left, long right) {
 		try {
-			return multiplyAsLong(left, getMultiplication().inverseAsLong(right));
+			return timesAsLong(left, getMultiplication().inverseAsLong(right));
 		} catch (ArithmeticException e) {
 			throw new ArithmeticException("divide by Additive Identify");
 		}
 	}
 	@Override
-	public default Long reminder(Long left, Long right) {
-		return reminderAsLong(left, right);
+	public default Long remainder(Long left, Long right) {
+		return remainderAsLong(left, right);
 	}
 	@Override
-	public default long reminderAsLong(long left, long right) {
-		if (isDivisibleAsLong(left, right)) throw new ArithmeticException("divide by Additive Identify");
+	public default long remainderAsLong(long left, long right) {
+		if (isDivisible(left, right)) throw new ArithmeticException("divide by Additive Identify");
 		return additiveIdentityAsLong();
 	}
 	@Override
@@ -50,7 +50,7 @@ public interface LongField<A extends LongAbelian, M extends LongAbelian> extends
 	}
 	@Override
 	public default long gcdAsLong(long left, long right) {
-		return multipleIdentityAsLong();
+		return multiplicativeIdentityAsLong();
 	}
 	@Override
 	public default Long lcm(Long left, Long right) {
@@ -58,7 +58,7 @@ public interface LongField<A extends LongAbelian, M extends LongAbelian> extends
 	}
 	@Override
 	public default long lcmAsLong(long left, long right) {
-		return multipleIdentityAsLong();
+		return multiplicativeIdentityAsLong();
 	}
 	@Override
 	public default MultiSet<? extends LongPrimeElement> getPrimeFactorization(Long x) {

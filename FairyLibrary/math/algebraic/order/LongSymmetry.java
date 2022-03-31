@@ -1,4 +1,4 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
 /**
  * 演算が対称律を満たすことを示すために使用するマーカー・インターフェースです。

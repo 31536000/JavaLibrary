@@ -1,11 +1,11 @@
-package math.algebraic.field;
+package com._31536000.math.algebraic.field;
 
-import math.algebraic.domain.DoubleDomain;
-import math.algebraic.domain.DoublePrimeElement;
-import math.algebraic.group.DoubleAbelian;
-import math.algebraic.group.DoubleGroup;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.DoubleDomain;
+import com._31536000.math.algebraic.domain.DoublePrimeElement;
+import com._31536000.math.algebraic.group.DoubleAbelian;
+import com._31536000.math.algebraic.group.DoubleGroup;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * 演算が斜体であることを示すために使用するマーカー・インターフェースです。
@@ -16,12 +16,25 @@ import util.collect.MultiSet;
  * @param <M> 積に関する演算
  */
 public interface DoubleSkewField<A extends DoubleAbelian, M extends DoubleGroup> extends SkewField<Double, A, M>, DoubleDomain<A, M>{
+
 	@Override
-	public default boolean isDivisible(Double left, Double right) {
-		return isDivisibleAsDouble(left, right);
+	public default Double inverse(Double element) {
+		return inverseAsDouble(element);
+	}
+	/**
+	 * 乗法逆元を返します。
+	 * @param element 乗法逆元を求める値
+	 * @return 乗法逆元
+	 */
+	public default double inverseAsDouble(double element) {
+		return getMultiplication().inverseAsDouble(element);
 	}
 	@Override
-	public default boolean isDivisibleAsDouble(double left, double right) {
+	public default boolean isDivisible(Double left, Double right) {
+		return isDivisible((double)left, (double)right);
+	}
+	@Override
+	public default boolean isDivisible(double left, double right) {
 		return right != additiveIdentityAsDouble();
 	}
 	@Override
@@ -31,14 +44,14 @@ public interface DoubleSkewField<A extends DoubleAbelian, M extends DoubleGroup>
 	@Override
 	public default double divideAsDouble(double left, double right) {
 		try {
-			return multiplyAsDouble(left, getMultiplication().inverseAsDouble(right));
+			return timesAsDouble(left, getMultiplication().inverseAsDouble(right));
 		} catch (ArithmeticException e) {
 			throw new ArithmeticException("divide by Additive Identify");
 		}
 	}
 	@Override
-	public default Double reminder(Double left, Double right) {
-		return reminderAsDouble(left, right);
+	public default Double remainder(Double left, Double right) {
+		return remainderAsDouble(left, right);
 	}
 	/**
 	 * leftをrightで割った余りを返します。
@@ -46,8 +59,8 @@ public interface DoubleSkewField<A extends DoubleAbelian, M extends DoubleGroup>
 	 * @param right 関数の第二引数
 	 * @return left % right
 	 */
-	public default double reminderAsDouble(double left, double right) {
-		if (isDivisibleAsDouble(left, right)) throw new ArithmeticException("divide by Additive Identify");
+	public default double remainderAsDouble(double left, double right) {
+		if (isDivisible(left, right)) throw new ArithmeticException("divide by Additive Identify");
 		return additiveIdentityAsDouble();
 	}
 	@Override
@@ -61,7 +74,7 @@ public interface DoubleSkewField<A extends DoubleAbelian, M extends DoubleGroup>
 	 * @return leftとrightの最大公約数
 	 */
 	public default double gcdAsDouble(double left, double right) {
-		return multipleIdentityAsDouble();
+		return multiplicativeIdentityAsDouble();
 	}
 	@Override
 	public default Double lcm(Double left, Double right) {
@@ -74,7 +87,7 @@ public interface DoubleSkewField<A extends DoubleAbelian, M extends DoubleGroup>
 	 * @return leftとrightの最小公倍数
 	 */
 	public default double lcmAsDouble(double left, double right) {
-		return multipleIdentityAsDouble();
+		return multiplicativeIdentityAsDouble();
 	}
 	@Override
 	public default MultiSet<? extends DoublePrimeElement> getPrimeFactorization(Double x) {

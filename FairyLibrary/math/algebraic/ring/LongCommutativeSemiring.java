@@ -1,6 +1,6 @@
-package math.algebraic.ring;
+package com._31536000.math.algebraic.ring;
 
-import math.algebraic.group.LongCommutativeMonoid;
+import com._31536000.math.algebraic.group.LongCommutativeMonoid;
 
 /**
  * 演算が可換半環に属することを示すために使用するマーカー・インターフェースです。

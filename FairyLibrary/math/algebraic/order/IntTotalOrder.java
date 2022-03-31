@@ -1,7 +1,7 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
 import java.util.function.IntBinaryOperator;
-import util.IntComparator;
+import com._31536000.util.IntComparator;
 
 /**
  * 演算が全順序であることを示すために使用するマーカー・インターフェースです。
@@ -11,7 +11,7 @@ import util.IntComparator;
 public interface IntTotalOrder extends TotalOrder<Integer>, IntPartialOrder, IntConnexity, IntComparator{
 	@Override
 	default int compare(Integer o1, Integer o2) {
-		return compareAsInt(o1, o2);
+		return compare((int)o1, (int)o2);
 	}
 	/**
 	 * {@link IntComparator}を受け取り、TotalOrderへと拡張します。
@@ -19,7 +19,7 @@ public interface IntTotalOrder extends TotalOrder<Integer>, IntPartialOrder, Int
 	 * @return IntComparatorと同じ比較を提供するTotalOrder
 	 */
 	public static IntTotalOrder comparing(IntComparator comparator) {
-		return (o1, o2) -> comparator.compareAsInt(o1, o2);
+		return (o1, o2) -> comparator.compare(o1, o2);
 	}
 	/**
 	 * 比較関数を受け取り、TotalOrderへと拡張します。
@@ -46,6 +46,6 @@ public interface IntTotalOrder extends TotalOrder<Integer>, IntPartialOrder, Int
 	}
 	@Override
 	public default IntTotalOrder reversed() {
-		return (o1, o2) -> compareAsInt(o2, o1);
+		return (o1, o2) -> compare(o2, o1);
 	}
 }

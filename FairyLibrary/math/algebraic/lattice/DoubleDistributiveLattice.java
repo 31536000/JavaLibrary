@@ -1,8 +1,9 @@
-package math.algebraic.lattice;
+package com._31536000.math.algebraic.lattice;
 
-import math.algebraic.group.DoubleSemilattice;
-import math.algebraic.ring.DoubleCommutativeSemiring;
-import math.algebraic.ring.DoubleIdempotentSemiring;
+import com._31536000.math.algebraic.group.DoubleSemilattice;
+import com._31536000.math.algebraic.order.IncomparableException;
+import com._31536000.math.algebraic.ring.DoubleCommutativeSemiring;
+import com._31536000.math.algebraic.ring.DoubleIdempotentSemiring;
 
 /**
  * 演算が分配束に属することを示すために使用するマーカー・インターフェースです。
@@ -14,19 +15,46 @@ import math.algebraic.ring.DoubleIdempotentSemiring;
  */
 public interface DoubleDistributiveLattice<A extends DoubleSemilattice, M extends DoubleSemilattice> extends DistributiveLattice<Double, A, M>, DoubleIdempotentSemiring<A, M>, DoubleCommutativeSemiring<A, M>, DoubleLattice<A, M>{
 	@Override
-	default Double add(Double left, Double right) {
-		return addAsDouble(left, right);
+	default Double plus(Double left, Double right) {
+		return plusAsDouble(left, right);
 	}
 	@Override
-	default Double multiply(Double left, Double right) {
-		return multiplyAsDouble(left, right);
+	default double plusAsDouble(double left, double right) {
+		return getAddition().applyAsDouble(left, right);
+	}
+	@Override
+	default Double times(Double left, Double right) {
+		return timesAsDouble(left, right);
+	}
+	@Override
+	public default double timesAsDouble(double left, double right) {
+		return getMultiplication().applyAsDouble(left, right);
 	}
 	@Override
 	default Double additiveIdentity() {
 		return additiveIdentityAsDouble();
 	}
 	@Override
-	default Double multipleIdentity() {
-		return multipleIdentityAsDouble();
+	public default double additiveIdentityAsDouble() {
+		return getAddition().identityAsDouble();
+	}
+	@Override
+	default Double multiplicativeIdentity() {
+		return multiplicativeIdentityAsDouble();
+	}
+	@Override
+	public default double multiplicativeIdentityAsDouble() {
+		return getMultiplication().identityAsDouble();
+	}
+	@Override
+	default int compare(Double o1, Double o2) {
+		return compare((double)o1, (double)o2);
+	}
+	@Override
+	default int compare(double o1, double o2) {
+		double o3 = getMultiplication().applyAsDouble(o1, o2);
+		if (o1 == o3) return o2 == o3 ? 0 : -1;
+		if (o2 == o3) return 1;
+		throw new IncomparableException();
 	}
 }

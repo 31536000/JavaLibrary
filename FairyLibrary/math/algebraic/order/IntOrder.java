@@ -1,4 +1,4 @@
-package math.algebraic.order;
+package com._31536000.math.algebraic.order;
 
 /**
  * 順序関係を意味する演算を提供します。
@@ -10,7 +10,7 @@ package math.algebraic.order;
 public interface IntOrder extends Order<Integer>{
 	@Override
 	public default int compare(Integer o1, Integer o2) {
-		return compareAsInt(o1, o2);
+		return compare((int)o1, (int)o2);
 	}
 	/**
 	 * 順序付けのために2つの引数を比較します。
@@ -21,10 +21,10 @@ public interface IntOrder extends Order<Integer>{
 	 * @return 最初の引数が2番目の引数より小さい場合は負の整数、両方が等しい場合は0、最初の引数が2番目の引数より大きい場合は正の整数。
 	 * @exception IncomparableException 二つのオブジェクトが比較不能な場合。
 	 */
-	public int compareAsInt(int o1, int o2);
+	public int compare(int o1, int o2);
 	@Override
 	public default boolean isComparable(Integer o1, Integer o2) {
-		return isComparableAsInt(o1, o2);
+		return isComparable((int)o1, (int)o2);
 	}
 	/**
 	 * 二つの要素o1とo2が比較不能か判定します。
@@ -32,9 +32,9 @@ public interface IntOrder extends Order<Integer>{
 	 * @param o2 比較対象の2番目のオブジェクト。
 	 * @return 比較可能ならばtrue
 	 */
-	public default boolean isComparableAsInt(int o1, int o2) {
+	public default boolean isComparable(int o1, int o2) {
 		try {
-			compareAsInt(o1, o2);
+			compare(o1, o2);
 		} catch (IncomparableException e) {
 			return false;
 		}

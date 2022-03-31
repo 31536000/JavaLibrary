@@ -1,8 +1,8 @@
-package math.algebraic.lattice;
+package com._31536000.math.algebraic.lattice;
 
-import math.algebraic.group.Semilattice;
-import math.algebraic.order.IncomparableException;
-import math.algebraic.order.Preorder;
+import com._31536000.math.algebraic.group.Semilattice;
+import com._31536000.math.algebraic.order.IncomparableException;
+import com._31536000.math.algebraic.order.PartialOrder;
 
 /**
  * 演算が束に属することを示すために使用するマーカー・インターフェースです。
@@ -12,7 +12,7 @@ import math.algebraic.order.Preorder;
  * @param <A> 和に関する演算
  * @param <M> 積に関する演算
  */
-public interface Lattice<T, A extends Semilattice<T>, M extends Semilattice<T>> extends Preorder<T>{
+public interface Lattice<T, A extends Semilattice<T>, M extends Semilattice<T>> extends PartialOrder<T>{
 	/**
 	 * 和をなす演算を取り出します。
 	 * @return 和に関する演算
@@ -29,7 +29,7 @@ public interface Lattice<T, A extends Semilattice<T>, M extends Semilattice<T>> 
 	 * @param right 関数の第二引数
 	 * @return left + right
 	 */
-	public default T add(T left, T right) {
+	public default T plus(T left, T right) {
 		return getAddition().apply(left, right);
 	}
 	/**
@@ -38,7 +38,7 @@ public interface Lattice<T, A extends Semilattice<T>, M extends Semilattice<T>> 
 	 * @param right 関数の第二引数
 	 * @return left * right
 	 */
-	public default T multiply(T left, T right) {
+	public default T times(T left, T right) {
 		return getMultiplication().apply(left, right);
 	}
 	/**
@@ -52,7 +52,7 @@ public interface Lattice<T, A extends Semilattice<T>, M extends Semilattice<T>> 
 	 * 乗法単位元を取得します。
 	 * @return 乗法単位元
 	 */
-	public default T multipleIdentity() {
+	public default T multiplicativeIdentity() {
 		return getMultiplication().identity();
 	}
 	@Override

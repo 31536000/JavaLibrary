@@ -1,13 +1,15 @@
-package math.algebraic;
+package com._31536000.math.algebraic;
 
 import java.util.function.BinaryOperator;
-import math.algebraic.group.Associative;
-import math.algebraic.group.Monoid;
+import com._31536000.math.algebraic.group.Associative;
+import com._31536000.math.algebraic.group.Monoid;
 
 public class AlgebraicUtility {
 	private AlgebraicUtility() {
 		throw new AssertionError();
 	}
+	
+	
 
 	@SafeVarargs
 	public static <T> T apply(BinaryOperator<T> operate, T... element) {
@@ -52,8 +54,8 @@ public class AlgebraicUtility {
 
 			@Override
 			public T apply(T t, T u) {
-				if (t != null && t.equals(unit)) return u;
-				if (u != null && u.equals(unit)) return t;
+				if (unit.equals(t)) return u;
+				if (unit.equals(u)) return t;
 				return operate.apply(t, u);
 			}
 

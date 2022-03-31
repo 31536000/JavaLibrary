@@ -1,4 +1,4 @@
-package math.algebraic.group;
+package com._31536000.math.algebraic.group;
 
 
 /**
@@ -8,5 +8,12 @@ package math.algebraic.group;
  * @param <T> 二項演算の型
  */
 public interface Band<T> extends Associative<T>, Idempotent<T> {
-
+	@Override
+	public default T hyper(T element, int repeat) {
+		return element;
+	}
+	@Override
+	public default T hyper(T element, long repeat) {
+		return element;
+	}
 }

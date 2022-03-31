@@ -1,7 +1,7 @@
-package math.algebraic.ring;
+package com._31536000.math.algebraic.ring;
 
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntCommutativeMonoid;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntCommutativeMonoid;
 
 /**
  * 演算が可換環に属することを示すために使用するマーカー・インターフェースです。
@@ -11,6 +11,7 @@ import math.algebraic.group.IntCommutativeMonoid;
  * @param <A> 和に関する演算
  * @param <M> 積に関する演算
  */
-public interface IntCommutativeRing<A extends IntAbelian, M extends IntCommutativeMonoid> extends CommutativeRing<Integer, A, M>, IntRing<A, M>, IntCommutativeSemiring<A, M>{
+public interface IntCommutativeRing<A extends IntAbelian, M extends IntCommutativeMonoid> 
+	extends CommutativeRing<Integer, A, M>, IntRing<A, M>, IntCommutativeSemiring<A, M>{
 
 }

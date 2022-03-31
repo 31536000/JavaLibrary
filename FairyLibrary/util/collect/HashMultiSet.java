@@ -1,4 +1,4 @@
-package util.collect;
+package com._31536000.util.collect;
 
 public class HashMultiSet<E> implements MultiSet<E>, Cloneable, java.io.Serializable {
 
@@ -459,6 +459,11 @@ public class HashMultiSet<E> implements MultiSet<E>, Cloneable, java.io.Serializ
 			return n == 0;
 		}
 
+		@Override
+		public int hashCode() {
+			return element.hashCode();
+		}
+
 	}
 	private transient final DummyRemoveEntry dummyRemove = new DummyRemoveEntry();
 
@@ -501,6 +506,10 @@ public class HashMultiSet<E> implements MultiSet<E>, Cloneable, java.io.Serializ
 			return true;
 		}
 
+		@Override
+		public int hashCode() {
+			return element.hashCode();
+		}
 	}
 
 	private transient final DummySetEntry dummySet1 = new DummySetEntry();

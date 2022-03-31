@@ -1,8 +1,8 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
-import math.algebraic.group.LongAbelian;
-import math.algebraic.group.LongMonoid;
-import math.algebraic.ring.LongRing;
+import com._31536000.math.algebraic.group.LongAbelian;
+import com._31536000.math.algebraic.group.LongMonoid;
+import com._31536000.math.algebraic.ring.LongRing;
 
 /**
  * 演算が域であることを示すために使用するマーカー・インターフェースです。
@@ -15,7 +15,7 @@ import math.algebraic.ring.LongRing;
 public interface LongDomain<A extends LongAbelian, M extends LongMonoid> extends Domain<Long, A, M>, LongRing<A, M>{
 	@Override
 	public default boolean isDivisible(Long left, Long right) {
-		return isDivisibleAsLong(left, right);
+		return isDivisible((long)left, (long)right);
 	}
 	/**
 	 * leftをrightで割ることが可能か判定します。
@@ -23,7 +23,7 @@ public interface LongDomain<A extends LongAbelian, M extends LongMonoid> extends
 	 * @param right 関数の第二引数
 	 * @return left / rightが定義されているならtrue
 	 */
-	public default boolean isDivisibleAsLong(long left, long right) {
+	public default boolean isDivisible(long left, long right) {
 		try {
 			divideAsLong(left, right);
 		} catch (ArithmeticException e) {

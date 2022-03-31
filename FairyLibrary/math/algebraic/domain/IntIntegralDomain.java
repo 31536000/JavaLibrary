@@ -1,8 +1,8 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntCommutativeMonoid;
-import math.algebraic.ring.IntCommutativeRing;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntCommutativeMonoid;
+import com._31536000.math.algebraic.ring.IntCommutativeRing;
 
 /**
  * 演算が整域であることを示すために使用するマーカー・インターフェースです。

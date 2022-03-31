@@ -1,9 +1,9 @@
-package util.collect;
+package com._31536000.util.collect;
 
 import java.util.Iterator;
 import java.util.function.UnaryOperator;
 
-public class IterableRange<C> extends Range<C> implements Iterable<C>{
+public class IterableRange<C> extends IRange<C> implements Iterable<C>{
 
 	private static final long serialVersionUID = 9065915259748260688L;
 	protected UnaryOperator<C> func;

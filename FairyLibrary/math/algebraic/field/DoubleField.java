@@ -1,10 +1,10 @@
-package math.algebraic.field;
+package com._31536000.math.algebraic.field;
 
-import math.algebraic.domain.DoubleEuclideanDomain;
-import math.algebraic.domain.DoublePrimeElement;
-import math.algebraic.group.DoubleAbelian;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.DoubleEuclideanDomain;
+import com._31536000.math.algebraic.domain.DoublePrimeElement;
+import com._31536000.math.algebraic.group.DoubleAbelian;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * 演算が体であることを示すために使用するマーカー・インターフェースです。
@@ -17,10 +17,10 @@ import util.collect.MultiSet;
 public interface DoubleField<A extends DoubleAbelian, M extends DoubleAbelian> extends Field<Double, A, M>, DoubleSkewField<A, M>, DoubleEuclideanDomain<A, M>{
 	@Override
 	public default boolean isDivisible(Double left, Double right) {
-		return isDivisibleAsDouble(left, right);
+		return isDivisible((double)left, (double)right);
 	}
 	@Override
-	public default boolean isDivisibleAsDouble(double left, double right) {
+	public default boolean isDivisible(double left, double right) {
 		return right != additiveIdentityAsDouble();
 	}
 	@Override
@@ -30,18 +30,18 @@ public interface DoubleField<A extends DoubleAbelian, M extends DoubleAbelian> e
 	@Override
 	public default double divideAsDouble(double left, double right) {
 		try {
-			return multiplyAsDouble(left, getMultiplication().inverseAsDouble(right));
+			return timesAsDouble(left, getMultiplication().inverseAsDouble(right));
 		} catch (ArithmeticException e) {
 			throw new ArithmeticException("divide by Additive Identify");
 		}
 	}
 	@Override
-	public default Double reminder(Double left, Double right) {
-		return reminderAsDouble(left, right);
+	public default Double remainder(Double left, Double right) {
+		return remainderAsDouble(left, right);
 	}
 	@Override
-	public default double reminderAsDouble(double left, double right) {
-		if (isDivisibleAsDouble(left, right)) throw new ArithmeticException("divide by Additive Identify");
+	public default double remainderAsDouble(double left, double right) {
+		if (isDivisible(left, right)) throw new ArithmeticException("divide by Additive Identify");
 		return additiveIdentityAsDouble();
 	}
 	@Override
@@ -50,7 +50,7 @@ public interface DoubleField<A extends DoubleAbelian, M extends DoubleAbelian> e
 	}
 	@Override
 	public default double gcdAsDouble(double left, double right) {
-		return multipleIdentityAsDouble();
+		return multiplicativeIdentityAsDouble();
 	}
 	@Override
 	public default Double lcm(Double left, Double right) {
@@ -58,7 +58,7 @@ public interface DoubleField<A extends DoubleAbelian, M extends DoubleAbelian> e
 	}
 	@Override
 	public default double lcmAsDouble(double left, double right) {
-		return multipleIdentityAsDouble();
+		return multiplicativeIdentityAsDouble();
 	}
 	@Override
 	public default MultiSet<? extends DoublePrimeElement> getPrimeFactorization(Double x) {

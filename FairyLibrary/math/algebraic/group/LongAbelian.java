@@ -1,4 +1,4 @@
-package math.algebraic.group;
+package com._31536000.math.algebraic.group;
 
 /**
  * 演算がアーベル群(可換群)であることを示すために使用するマーカー・インターフェースです。

@@ -1,7 +1,7 @@
-package math.algebraic.ring;
+package com._31536000.math.algebraic.ring;
 
-import math.algebraic.group.Abelian;
-import math.algebraic.group.Monoid;
+import com._31536000.math.algebraic.group.Abelian;
+import com._31536000.math.algebraic.group.Monoid;
 
 /**
  * 演算が環であることを示すために使用するマーカー・インターフェースです。
@@ -11,14 +11,6 @@ import math.algebraic.group.Monoid;
  * @param <A> 和に関する演算
  * @param <M> 積に関する演算
  */
-public interface Ring<T, A extends Abelian<T>, M extends Monoid<T>> extends Semiring<T, A, M>{
-	/**
-	 * 差について演算を行います。
-	 * @param left 関数の第一引数
-	 * @param right 関数の第二引数
-	 * @return left - right
-	 */
-	public default T subtract(T left, T right) {
-		return getAddition().subtract(left, right);
-	}
+public interface Ring<T, A extends Abelian<T>, M extends Monoid<T>> extends Semiring<T, A, M>, PseudoRing<T, A, M>{
+
 }

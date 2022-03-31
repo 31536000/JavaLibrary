@@ -1,4 +1,4 @@
-package util;
+package com._31536000.util;
 
 import java.util.Comparator;
 
@@ -8,11 +8,11 @@ import java.util.Comparator;
  *
  */
 public interface DoubleComparator extends Comparator<Double> {
-	int compareAsDouble(double o1, double o2);
+	int compare(double o1, double o2);
 
 	@Override
 	public default int compare(Double o1, Double o2) {
-		return compareAsDouble(o1, o2);
+		return compare(o1, o2);
 	}
 
 	public static DoubleComparator naturalOrder() {
@@ -21,7 +21,7 @@ public interface DoubleComparator extends Comparator<Double> {
 
 	@Override
 	public default DoubleComparator reversed() {
-		return (o1, o2) -> compareAsDouble(o2, o1);
+		return (o1, o2) -> compare(o2, o1);
 	}
 
 	public static DoubleComparator reverseOrder() {

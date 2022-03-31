@@ -1,4 +1,4 @@
-package util.function;
+package com._31536000.util.function;
 
 /**
  * 引数を受け取らず、結果を返さないオペレーションを表します。

@@ -1,7 +1,8 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
-import math.algebraic.group.DoubleAbelian;
-import math.algebraic.group.DoubleCommutativeMonoid;
+import com._31536000.math.algebraic.group.DoubleAbelian;
+import com._31536000.math.algebraic.group.DoubleCommutativeMonoid;
+import com._31536000.util.collect.Array;
 
 /**
  * 演算がユークリッド整域であることを示すために使用するマーカー・インターフェースです。
@@ -13,8 +14,8 @@ import math.algebraic.group.DoubleCommutativeMonoid;
  */
 public interface DoubleEuclideanDomain<A extends DoubleAbelian, M extends DoubleCommutativeMonoid> extends EuclideanDomain<Double, A, M>, DoublePrincipalIdealDomain<A, M>{
 	@Override
-	public default Double reminder(Double left, Double right) {
-		return reminderAsDouble(left, right);
+	public default Double remainder(Double left, Double right) {
+		return remainderAsDouble(left, right);
 	}
 	/**
 	 * leftをrightで割った余りを返します。
@@ -22,5 +23,27 @@ public interface DoubleEuclideanDomain<A extends DoubleAbelian, M extends Double
 	 * @param right 関数の第二引数
 	 * @return left % right
 	 */
-	public double reminderAsDouble(double left, double right);
+	public double remainderAsDouble(double left, double right);
+
+	@Override
+	public default Array<Double> divideAndRemainder(Double left, Double right) {
+		double remain = remainderAsDouble(left, right);
+		double div = divideAsDouble(minusAsDouble(left, remain), right);
+		Array<Double> ret = Array.create(2);
+		ret.set(0, div);
+		ret.set(1, remain);
+		return ret;
+	}
+	/**
+	 * right * x + y = leftとなるようなx及びyを値として持つ配列を返します。
+	 * ここでyは{@link #remainderAsDouble(left, right)}に一致します。
+	 * @param left 関数の第一引数
+	 * @param right 関数の第二引数
+	 * @return x, yと続く二つの要素を持つ配列
+	 */
+	public default double[] divideAndRemainderAsDouble(double left, double right) {
+		double remain = remainderAsDouble(left, right);
+		double div = divideAsDouble(minusAsDouble(left, remain), right);
+		return new double[] {div, remain};
+	}
 }

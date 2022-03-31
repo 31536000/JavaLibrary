@@ -1,7 +1,7 @@
-package math.algebraic.domain;
+package com._31536000.math.algebraic.domain;
 
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntCommutativeMonoid;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntCommutativeMonoid;
 
 /**
  * 演算がGCD整域であることを示すために使用するマーカー・インターフェースです。

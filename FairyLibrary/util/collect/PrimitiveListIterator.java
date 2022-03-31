@@ -1,4 +1,4 @@
-package util.collect;
+package com._31536000.util.collect;
 
 import java.util.ListIterator;
 import java.util.NoSuchElementException;

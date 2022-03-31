@@ -1,11 +1,11 @@
-package math.algebraic.field;
+package com._31536000.math.algebraic.field;
 
-import math.algebraic.domain.IntDomain;
-import math.algebraic.domain.IntPrimeElement;
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntGroup;
-import util.collect.HashMultiSet;
-import util.collect.MultiSet;
+import com._31536000.math.algebraic.domain.IntDomain;
+import com._31536000.math.algebraic.domain.IntPrimeElement;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntGroup;
+import com._31536000.util.collect.HashMultiSet;
+import com._31536000.util.collect.MultiSet;
 
 /**
  * 演算が斜体であることを示すために使用するマーカー・インターフェースです。
@@ -16,12 +16,25 @@ import util.collect.MultiSet;
  * @param <M> 積に関する演算
  */
 public interface IntSkewField<A extends IntAbelian, M extends IntGroup> extends SkewField<Integer, A, M>, IntDomain<A, M>{
+
 	@Override
-	public default boolean isDivisible(Integer left, Integer right) {
-		return isDivisibleAsInt(left, right);
+	public default Integer inverse(Integer element) {
+		return inverseAsInt(element);
+	}
+	/**
+	 * 乗法逆元を返します。
+	 * @param element 乗法逆元を求める値
+	 * @return 乗法逆元
+	 */
+	public default int inverseAsInt(int element) {
+		return getMultiplication().inverseAsInt(element);
 	}
 	@Override
-	public default boolean isDivisibleAsInt(int left, int right) {
+	public default boolean isDivisible(Integer left, Integer right) {
+		return isDivisible((int)left, (int)right);
+	}
+	@Override
+	public default boolean isDivisible(int left, int right) {
 		return right != additiveIdentityAsInt();
 	}
 	@Override
@@ -31,13 +44,13 @@ public interface IntSkewField<A extends IntAbelian, M extends IntGroup> extends 
 	@Override
 	public default int divideAsInt(int left, int right) {
 		try {
-			return multiplyAsInt(left, getMultiplication().inverseAsInt(right));
+			return timesAsInt(left, getMultiplication().inverseAsInt(right));
 		} catch (ArithmeticException e) {
 			throw new ArithmeticException("divide by Additive Identify");
 		}
 	}
 	@Override
-	public default Integer reminder(Integer left, Integer right) {
+	public default Integer remainder(Integer left, Integer right) {
 		return reminderAsInt(left, right);
 	}
 	/**
@@ -47,7 +60,7 @@ public interface IntSkewField<A extends IntAbelian, M extends IntGroup> extends 
 	 * @return left % right
 	 */
 	public default Integer reminderAsInt(Integer left, Integer right) {
-		if (isDivisibleAsInt(left, right)) throw new ArithmeticException("divide by Additive Identify");
+		if (isDivisible(left, right)) throw new ArithmeticException("divide by Additive Identify");
 		return additiveIdentityAsInt();
 	}
 	@Override
@@ -61,7 +74,7 @@ public interface IntSkewField<A extends IntAbelian, M extends IntGroup> extends 
 	 * @return leftとrightの最大公約数
 	 */
 	public default Integer gcdAsInt(Integer left, Integer right) {
-		return multipleIdentityAsInt();
+		return multiplicativeIdentityAsInt();
 	}
 	@Override
 	public default Integer lcm(Integer left, Integer right) {
@@ -74,7 +87,7 @@ public interface IntSkewField<A extends IntAbelian, M extends IntGroup> extends 
 	 * @return leftとrightの最小公倍数
 	 */
 	public default Integer lcmAsInt(Integer left, Integer right) {
-		return multipleIdentityAsInt();
+		return multiplicativeIdentityAsInt();
 	}
 	@Override
 	public default MultiSet<? extends IntPrimeElement> getPrimeFactorization(Integer x) {

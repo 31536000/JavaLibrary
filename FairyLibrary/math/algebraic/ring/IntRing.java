@@ -1,7 +1,7 @@
-package math.algebraic.ring;
+package com._31536000.math.algebraic.ring;
 
-import math.algebraic.group.IntAbelian;
-import math.algebraic.group.IntMonoid;
+import com._31536000.math.algebraic.group.IntAbelian;
+import com._31536000.math.algebraic.group.IntMonoid;
 
 /**
  * 演算が環であることを示すために使用するマーカー・インターフェースです。
@@ -11,18 +11,5 @@ import math.algebraic.group.IntMonoid;
  * @param <A> 和に関する演算
  * @param <M> 積に関する演算
  */
-public interface IntRing<A extends IntAbelian, M extends IntMonoid> extends Ring<Integer, A, M>, IntSemiring<A, M>{
-	@Override
-	public default Integer subtract(Integer left, Integer right) {
-		return subtractAsInt(left, right);
-	}
-	/**
-	 * 差について演算を行います。
-	 * @param left 関数の第一引数
-	 * @param right 関数の第二引数
-	 * @return left - right
-	 */
-	public default int subtractAsInt(int left, int right) {
-		return getAddition().subtractAsInt(left, right);
-	}
+public interface IntRing<A extends IntAbelian, M extends IntMonoid> extends Ring<Integer, A, M>, IntSemiring<A, M>, IntPseudoRing<A, M>{
 }
