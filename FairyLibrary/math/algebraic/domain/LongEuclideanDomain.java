@@ -37,7 +37,7 @@ public interface LongEuclideanDomain<A extends LongAbelian, M extends LongCommut
 	}
 	/**
 	 * right * x + y = leftとなるようなx及びyを値として持つ配列を返します。
-	 * ここでyは{@link #remainderAsLong(left, right)}に一致します。
+	 * ここでyは{@link #remainderAsLong(long, long) #remainderAsLong(left, right)}に一致します。
 	 * @param left 関数の第一引数
 	 * @param right 関数の第二引数
 	 * @return x, yと続く二つの要素を持つ配列

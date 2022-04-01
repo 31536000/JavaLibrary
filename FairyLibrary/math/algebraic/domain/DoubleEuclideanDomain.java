@@ -36,7 +36,7 @@ public interface DoubleEuclideanDomain<A extends DoubleAbelian, M extends Double
 	}
 	/**
 	 * right * x + y = leftとなるようなx及びyを値として持つ配列を返します。
-	 * ここでyは{@link #remainderAsDouble(left, right)}に一致します。
+	 * ここでyは{@link #remainderAsDouble(double, double) #remainderAsDouble(left, right)}に一致します。
 	 * @param left 関数の第一引数
 	 * @param right 関数の第二引数
 	 * @return x, yと続く二つの要素を持つ配列

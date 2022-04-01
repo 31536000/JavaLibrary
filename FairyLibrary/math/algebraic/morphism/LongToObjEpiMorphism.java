@@ -16,14 +16,6 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 	@Override
 	public ObjToLongMonoMorphism<T> section();
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default LongToIntEpiMorphism andThen(ObjToIntEpiMorphism<T> after) {
 		LongToObjEpiMorphism<T> now = this;
@@ -42,14 +34,6 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default LongEpiMorphism andThen(ObjToLongEpiMorphism<T> after) {
 		LongToObjEpiMorphism<T> now = this;
@@ -68,14 +52,6 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default LongToDoubleEpiMorphism andThen(ObjToDoubleEpiMorphism<T> after) {
 		LongToObjEpiMorphism<T> now = this;
@@ -94,27 +70,18 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
-	public default <U> LongToObjEpiMorphism<U> andThen(EpiMorphism<T, U> after) {
+	public default <S> LongToObjEpiMorphism<S> andThen(EpiMorphism<T, S> after) {
 		LongToObjEpiMorphism<T> now = this;
-		return new LongToObjEpiMorphism<U>() {
+		return new LongToObjEpiMorphism<S>() {
 
 			@Override
-			public U apply(long operand) {
+			public S apply(long operand) {
 				return after.apply(now.apply(operand));
 			}
 
 			@Override
-			public ObjToLongMonoMorphism<U> section() {
+			public ObjToLongMonoMorphism<S> section() {
 				return after.section().andThen(now.section());
 			}
 
@@ -127,7 +94,6 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjEpiMorphism<T> compose(IntToLongEpiMorphism before) {
 		LongToObjEpiMorphism<T> now = this;
@@ -152,7 +118,6 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjEpiMorphism<T> compose(LongEpiMorphism before) {
 		LongToObjEpiMorphism<T> now = this;
@@ -177,7 +142,6 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjEpiMorphism<T> compose(DoubleToLongEpiMorphism before) {
 		LongToObjEpiMorphism<T> now = this;
@@ -199,23 +163,22 @@ public interface LongToObjEpiMorphism<T> extends EpiMorphism<Long, T>, LongToObj
 	/**
 	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
 	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> before関数および合成関数の入力の型
+	 * @param <S> before関数および合成関数の入力の型
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
-	public default <U> EpiMorphism<U, T> compose(ObjToLongEpiMorphism<U> before) {
+	public default <S> EpiMorphism<S, T> compose(ObjToLongEpiMorphism<S> before) {
 		LongToObjEpiMorphism<T> now = this;
-		return new EpiMorphism<U, T>() {
+		return new EpiMorphism<S, T>() {
 
 			@Override
-			public T apply(U operand) {
+			public T apply(S operand) {
 				return now.apply(before.applyAsLong(operand));
 			}
 
 			@Override
-			public MonoMorphism<T, U> section() {
+			public MonoMorphism<T, S> section() {
 				return now.section().andThen(before.section());
 			}
 

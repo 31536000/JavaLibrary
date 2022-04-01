@@ -30,7 +30,6 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToIntIsoMorphism<S> andThen(ObjToIntIsoMorphism<T> after) {
 		IsoMorphism<S, T> now = this;
@@ -53,7 +52,6 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToLongIsoMorphism<S> andThen(ObjToLongIsoMorphism<T> after) {
 		IsoMorphism<S, T> now = this;
@@ -76,7 +74,6 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToDoubleIsoMorphism<S> andThen(ObjToDoubleIsoMorphism<T> after) {
 		IsoMorphism<S, T> now = this;
@@ -100,7 +97,7 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(IsoMorphism)
 	 */
 	public default <U> IsoMorphism<S, U> andThen(IsoMorphism<T, U> after) {
 		IsoMorphism<S, T> now = this;
@@ -123,7 +120,6 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjIsoMorphism<T> compose(IntToObjIsoMorphism<S> before) {
 		IsoMorphism<S, T> now = this;
@@ -147,7 +143,6 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjIsoMorphism<T> compose(LongToObjIsoMorphism<S> before) {
 		IsoMorphism<S, T> now = this;
@@ -171,7 +166,6 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjIsoMorphism<T> compose(DoubleToObjIsoMorphism<S> before) {
 		IsoMorphism<S, T> now = this;
@@ -196,7 +190,7 @@ public interface IsoMorphism<S, T> extends EpiMorphism<S, T>, MonoMorphism<S, T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(IsoMorphism)
 	 */
 	public default <U> IsoMorphism<U, T> compose(IsoMorphism<U, S> before) {
 		IsoMorphism<S, T> now = this;

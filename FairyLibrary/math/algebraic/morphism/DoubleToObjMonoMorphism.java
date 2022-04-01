@@ -16,14 +16,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 	@Override
 	public ObjToDoubleEpiMorphism<T> retraction();
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToIntMonoMorphism andThen(ObjToIntMonoMorphism<T> after) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -42,14 +34,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToLongMonoMorphism andThen(ObjToLongMonoMorphism<T> after) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -68,14 +52,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleMonoMorphism andThen(ObjToDoubleMonoMorphism<T> after) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -94,15 +70,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default <U> DoubleToObjMonoMorphism<U> andThen(MonoMorphism<T, U> after) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -127,7 +94,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjMonoMorphism<T> compose(IntToDoubleMonoMorphism before) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -152,7 +118,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjMonoMorphism<T> compose(LongToDoubleMonoMorphism before) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -177,7 +142,6 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjMonoMorphism<T> compose(DoubleMonoMorphism before) {
 		DoubleToObjMonoMorphism<T> now = this;
@@ -199,23 +163,22 @@ public interface DoubleToObjMonoMorphism<T> extends MonoMorphism<Double, T>, Dou
 	/**
 	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
 	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> before関数および合成関数の入力の型
+	 * @param <S> before関数および合成関数の入力の型
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
-	public default <U> MonoMorphism<U, T> compose(ObjToDoubleMonoMorphism<U> before) {
+	public default <S> MonoMorphism<S, T> compose(ObjToDoubleMonoMorphism<S> before) {
 		DoubleToObjMonoMorphism<T> now = this;
-		return new MonoMorphism<U, T>() {
+		return new MonoMorphism<S, T>() {
 
 			@Override
-			public T apply(U operand) {
+			public T apply(S operand) {
 				return now.apply(before.applyAsDouble(operand));
 			}
 
 			@Override
-			public EpiMorphism<T, U> retraction() {
+			public EpiMorphism<T, S> retraction() {
 				return now.retraction().andThen(before.retraction());
 			}
 

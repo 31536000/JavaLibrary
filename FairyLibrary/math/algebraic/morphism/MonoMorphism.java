@@ -20,7 +20,6 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToIntMonoMorphism<S> andThen(ObjToIntMonoMorphism<T> after) {
 		MonoMorphism<S, T> now = this;
@@ -43,7 +42,6 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToLongMonoMorphism<S> andThen(ObjToLongMonoMorphism<T> after) {
 		MonoMorphism<S, T> now = this;
@@ -66,7 +64,6 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToDoubleMonoMorphism<S> andThen(ObjToDoubleMonoMorphism<T> after) {
 		MonoMorphism<S, T> now = this;
@@ -90,7 +87,7 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(MonoMorphism)
 	 */
 	public default <U> MonoMorphism<S, U> andThen(MonoMorphism<T, U> after) {
 		MonoMorphism<S, T> now = this;
@@ -113,7 +110,6 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjMonoMorphism<T> compose(IntToObjMonoMorphism<S> before) {
 		MonoMorphism<S, T> now = this;
@@ -136,7 +132,6 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjMonoMorphism<T> compose(LongToObjMonoMorphism<S> before) {
 		MonoMorphism<S, T> now = this;
@@ -159,7 +154,6 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjMonoMorphism<T> compose(DoubleToObjMonoMorphism<S> before) {
 		MonoMorphism<S, T> now = this;
@@ -183,7 +177,7 @@ public interface MonoMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(MonoMorphism)
 	 */
 	public default <U> MonoMorphism<U, T> compose(MonoMorphism<U, S> before) {
 		MonoMorphism<S, T> now = this;

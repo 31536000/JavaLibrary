@@ -44,7 +44,7 @@ public interface LongAutoMorphism extends AutoMorphism<Long>, LongEndoMorphism, 
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(LongAutoMorphism)
 	 */
 	public default LongAutoMorphism andThen(LongAutoMorphism after) {
 		LongAutoMorphism now = this;
@@ -68,7 +68,7 @@ public interface LongAutoMorphism extends AutoMorphism<Long>, LongEndoMorphism, 
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(LongAutoMorphism)
 	 */
 	public default LongAutoMorphism compose(LongAutoMorphism before) {
 		LongAutoMorphism now = this;

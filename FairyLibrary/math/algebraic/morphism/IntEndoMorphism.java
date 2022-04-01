@@ -30,7 +30,7 @@ public interface IntEndoMorphism extends IntMorphism, EndoMorphism<Integer>, jav
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(IntEndoMorphism)
 	 */
 	public default IntEndoMorphism andThen(IntEndoMorphism after) {
 		return s -> after.applyAsInt(applyAsInt(s));
@@ -42,7 +42,7 @@ public interface IntEndoMorphism extends IntMorphism, EndoMorphism<Integer>, jav
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(IntEndoMorphism)
 	 */
 	public default IntEndoMorphism compose(IntEndoMorphism before) {
 		return s -> applyAsInt(before.applyAsInt(s));
@@ -52,7 +52,7 @@ public interface IntEndoMorphism extends IntMorphism, EndoMorphism<Integer>, jav
 	 * 恒等写像を返します。
 	 * @return 恒等写像
 	 */
-	public static  IntEndoMorphism identity() {
+	public static IntEndoMorphism identity() {
 		return t -> t;
 	}
 
@@ -61,7 +61,7 @@ public interface IntEndoMorphism extends IntMorphism, EndoMorphism<Integer>, jav
 	 * 二つの写像f, gを合成する演算apply(g, f)は、まず写像fを適用し、次にgを適用する写像となります(すなわちf.andThen(g)と一致します)。
 	 * @return 関数の合成を行う二項演算
 	 */
-	public static  Monoid<IntEndoMorphism> composition() {
+	public static Monoid<IntEndoMorphism> composition() {
 		return new Monoid<IntEndoMorphism>() {
 			@Override
 			public IntEndoMorphism apply(IntEndoMorphism t, IntEndoMorphism u) {

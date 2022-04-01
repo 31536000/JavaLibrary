@@ -23,7 +23,7 @@ public interface EuclideanDomain<T, A extends Abelian<T>, M extends CommutativeM
 
 	/**
 	 * right * x + y = leftとなるようなx及びyを値として持つ配列を返します。
-	 * ここでyは{@link #remainder(left, right)}に一致します。
+	 * ここでyは{@link #remainder(Object, Object) remainder(left, right)}に一致します。
 	 * @param left 関数の第一引数
 	 * @param right 関数の第二引数
 	 * @return x, yと続く二つの要素を持つ配列

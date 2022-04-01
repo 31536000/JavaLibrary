@@ -16,7 +16,7 @@ public interface EndoMorphism<T> extends Morphism<T, T>, java.util.function.Unar
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(EndoMorphism)
 	 */
 	public default EndoMorphism<T> andThen(EndoMorphism<T> after) {
 		return s -> after.apply(apply(s));
@@ -28,7 +28,7 @@ public interface EndoMorphism<T> extends Morphism<T, T>, java.util.function.Unar
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(EndoMorphism)
 	 */
 	public default EndoMorphism<T> compose(EndoMorphism<T> before) {
 		return s -> apply(before.apply(s));
@@ -36,6 +36,7 @@ public interface EndoMorphism<T> extends Morphism<T, T>, java.util.function.Unar
 
 	/**
 	 * 恒等写像を返します。
+	 * @param <T> 定義域
 	 * @return 恒等写像
 	 */
 	public static <T> EndoMorphism<T> identity() {
@@ -45,6 +46,7 @@ public interface EndoMorphism<T> extends Morphism<T, T>, java.util.function.Unar
 	/**
 	 * 関数の合成からなる二項演算を返します。
 	 * 二つの写像f, gを合成する演算apply(g, f)は、まず写像fを適用し、次にgを適用する写像となります(すなわちf.andThen(g)と一致します)。
+	 * @param <T> 定義域
 	 * @return 関数の合成を行う二項演算
 	 */
 	public static <T> Monoid<EndoMorphism<T>> composition() {

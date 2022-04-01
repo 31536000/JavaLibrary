@@ -12,8 +12,10 @@ public interface PrimeElement<T> {
 	 * @return 素元
 	 */
 	public T getPrimeElement();
+
 	/**
 	 * elementを保持したPrimeElementを返します。
+	 * @param <T> 演算の型
 	 * @param element 素元
 	 * @return elementを保持するPrimeElement
 	 */

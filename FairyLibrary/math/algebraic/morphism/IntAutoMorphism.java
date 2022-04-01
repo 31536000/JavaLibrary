@@ -44,7 +44,7 @@ public interface IntAutoMorphism extends AutoMorphism<Integer>, IntEndoMorphism,
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(IntAutoMorphism)
 	 */
 	public default IntAutoMorphism andThen(IntAutoMorphism after) {
 		IntAutoMorphism now = this;
@@ -68,7 +68,7 @@ public interface IntAutoMorphism extends AutoMorphism<Integer>, IntEndoMorphism,
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(IntAutoMorphism)
 	 */
 	public default IntAutoMorphism compose(IntAutoMorphism before) {
 		IntAutoMorphism now = this;

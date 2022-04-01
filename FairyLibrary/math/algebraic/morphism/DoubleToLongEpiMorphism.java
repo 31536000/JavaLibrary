@@ -26,14 +26,6 @@ public interface DoubleToLongEpiMorphism
 	@Override
 	public LongToDoubleMonoMorphism section();
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToIntEpiMorphism andThen(LongToIntEpiMorphism after) {
 		DoubleToLongEpiMorphism now = this;
@@ -52,14 +44,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToLongEpiMorphism andThen(LongEpiMorphism after) {
 		DoubleToLongEpiMorphism now = this;
@@ -78,14 +62,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleEpiMorphism andThen(LongToDoubleEpiMorphism after) {
 		DoubleToLongEpiMorphism now = this;
@@ -104,15 +80,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <T> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default <T> DoubleToObjEpiMorphism<T> andThen(LongToObjEpiMorphism<T> after) {
 		DoubleToLongEpiMorphism now = this;
@@ -131,14 +98,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default IntToLongEpiMorphism compose(IntToDoubleEpiMorphism before) {
 		DoubleToLongEpiMorphism now = this;
@@ -157,14 +116,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default LongEpiMorphism compose(LongToDoubleEpiMorphism before) {
 		DoubleToLongEpiMorphism now = this;
@@ -183,14 +134,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default DoubleToLongEpiMorphism compose(DoubleEpiMorphism before) {
 		DoubleToLongEpiMorphism now = this;
@@ -209,15 +152,6 @@ public interface DoubleToLongEpiMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <S> before関数および合成関数の入力の型
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default <S> ObjToLongEpiMorphism<S> compose(ObjToDoubleEpiMorphism<S> before) {
 		DoubleToLongEpiMorphism now = this;

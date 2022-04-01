@@ -30,7 +30,7 @@ public interface LongEndoMorphism extends LongMorphism, EndoMorphism<Long>, java
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(LongEndoMorphism)
 	 */
 	public default LongEndoMorphism andThen(LongEndoMorphism after) {
 		return s -> after.applyAsLong(applyAsLong(s));
@@ -42,7 +42,7 @@ public interface LongEndoMorphism extends LongMorphism, EndoMorphism<Long>, java
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(LongEndoMorphism)
 	 */
 	public default LongEndoMorphism compose(LongEndoMorphism before) {
 		return s -> applyAsLong(before.applyAsLong(s));
@@ -52,7 +52,7 @@ public interface LongEndoMorphism extends LongMorphism, EndoMorphism<Long>, java
 	 * 恒等写像を返します。
 	 * @return 恒等写像
 	 */
-	public static  LongEndoMorphism identity() {
+	public static LongEndoMorphism identity() {
 		return t -> t;
 	}
 
@@ -61,7 +61,7 @@ public interface LongEndoMorphism extends LongMorphism, EndoMorphism<Long>, java
 	 * 二つの写像f, gを合成する演算apply(g, f)は、まず写像fを適用し、次にgを適用する写像となります(すなわちf.andThen(g)と一致します)。
 	 * @return 関数の合成を行う二項演算
 	 */
-	public static  Monoid<LongEndoMorphism> composition() {
+	public static Monoid<LongEndoMorphism> composition() {
 		return new Monoid<LongEndoMorphism>() {
 			@Override
 			public LongEndoMorphism apply(LongEndoMorphism t, LongEndoMorphism u) {

@@ -44,7 +44,7 @@ public interface DoubleAutoMorphism extends AutoMorphism<Double>, DoubleEndoMorp
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(DoubleAutoMorphism)
 	 */
 	public default DoubleAutoMorphism andThen(DoubleAutoMorphism after) {
 		DoubleAutoMorphism now = this;
@@ -68,7 +68,7 @@ public interface DoubleAutoMorphism extends AutoMorphism<Double>, DoubleEndoMorp
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(DoubleAutoMorphism)
 	 */
 	public default DoubleAutoMorphism compose(DoubleAutoMorphism before) {
 		DoubleAutoMorphism now = this;

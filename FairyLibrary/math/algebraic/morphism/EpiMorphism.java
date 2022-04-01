@@ -20,7 +20,6 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToIntEpiMorphism<S> andThen(ObjToIntEpiMorphism<T> after) {
 		EpiMorphism<S, T> now = this;
@@ -43,7 +42,6 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToLongEpiMorphism<S> andThen(ObjToLongEpiMorphism<T> after) {
 		EpiMorphism<S, T> now = this;
@@ -66,7 +64,6 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
 	public default ObjToDoubleEpiMorphism<S> andThen(ObjToDoubleEpiMorphism<T> after) {
 		EpiMorphism<S, T> now = this;
@@ -90,7 +87,7 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
+	 * @see #compose(EpiMorphism)
 	 */
 	public default <U> EpiMorphism<S, U> andThen(EpiMorphism<T, U> after) {
 		EpiMorphism<S, T> now = this;
@@ -113,7 +110,6 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjEpiMorphism<T> compose(IntToObjEpiMorphism<S> before) {
 		EpiMorphism<S, T> now = this;
@@ -137,7 +133,6 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjEpiMorphism<T> compose(LongToObjEpiMorphism<S> before) {
 		EpiMorphism<S, T> now = this;
@@ -161,7 +156,6 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjEpiMorphism<T> compose(DoubleToObjEpiMorphism<S> before) {
 		EpiMorphism<S, T> now = this;
@@ -186,7 +180,7 @@ public interface EpiMorphism<S, T> extends Morphism<S, T> {
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
+	 * @see #andThen(EpiMorphism)
 	 */
 	public default <U> EpiMorphism<U, T> compose(EpiMorphism<U, S> before) {
 		EpiMorphism<S, T> now = this;

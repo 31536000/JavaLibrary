@@ -23,21 +23,9 @@ public interface DoubleMonoMorphism
 		return applyAsDouble((double) operand);
 	}
 
-	/**
-	 * 右逆射を返します。
-	 * @return 右逆射
-	 */
 	@Override
 	public DoubleEpiMorphism retraction();
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToIntMonoMorphism andThen(DoubleToIntMonoMorphism after) {
 		DoubleMonoMorphism now = this;
@@ -56,14 +44,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToLongMonoMorphism andThen(DoubleToLongMonoMorphism after) {
 		DoubleMonoMorphism now = this;
@@ -82,14 +62,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleMonoMorphism andThen(DoubleMonoMorphism after) {
 		DoubleMonoMorphism now = this;
@@ -108,15 +80,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <T> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default <T> DoubleToObjMonoMorphism<T> andThen(DoubleToObjMonoMorphism<T> after) {
 		DoubleMonoMorphism now = this;
@@ -135,14 +98,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default IntToDoubleMonoMorphism compose(IntToDoubleMonoMorphism before) {
 		DoubleMonoMorphism now = this;
@@ -161,14 +116,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default LongToDoubleMonoMorphism compose(LongToDoubleMonoMorphism before) {
 		DoubleMonoMorphism now = this;
@@ -187,14 +134,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default DoubleMonoMorphism compose(DoubleMonoMorphism before) {
 		DoubleMonoMorphism now = this;
@@ -213,15 +152,6 @@ public interface DoubleMonoMorphism
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <S> before関数および合成関数の入力の型
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default <S> ObjToDoubleMonoMorphism<S> compose(ObjToDoubleMonoMorphism<S> before) {
 		DoubleMonoMorphism now = this;

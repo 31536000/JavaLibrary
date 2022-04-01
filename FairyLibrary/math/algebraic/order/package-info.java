@@ -18,7 +18,6 @@
  * <li>{@link Symmetry} 対称律 任意の元x, yに対して x * y ならば y * x</li>
  * <li>{@link Transitivity} 推移律 任意の元x, y, zに対して x * y かつ y * z ならば x * z</li>
  * </ul>
- * </p>
  * @author 31536000
  *
  */

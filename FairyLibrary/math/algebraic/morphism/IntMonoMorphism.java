@@ -22,21 +22,9 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		return applyAsInt((int) operand);
 	}
 
-	/**
-	 * 右逆射を返します。
-	 * @return 右逆射
-	 */
 	@Override
 	public IntEpiMorphism retraction();
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default IntMonoMorphism andThen(IntMonoMorphism after) {
 		IntMonoMorphism now = this;
@@ -55,14 +43,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default IntToLongMonoMorphism andThen(IntToLongMonoMorphism after) {
 		IntMonoMorphism now = this;
@@ -81,14 +61,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default IntToDoubleMonoMorphism andThen(IntToDoubleMonoMorphism after) {
 		IntMonoMorphism now = this;
@@ -107,15 +79,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <T> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default <T> IntToObjMonoMorphism<T> andThen(IntToObjMonoMorphism<T> after) {
 		IntMonoMorphism now = this;
@@ -134,14 +97,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default IntMonoMorphism compose(IntMonoMorphism before) {
 		IntMonoMorphism now = this;
@@ -160,14 +115,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default LongToIntMonoMorphism compose(LongToIntMonoMorphism before) {
 		IntMonoMorphism now = this;
@@ -186,14 +133,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default DoubleToIntMonoMorphism compose(DoubleToIntMonoMorphism before) {
 		IntMonoMorphism now = this;
@@ -212,15 +151,6 @@ public interface IntMonoMorphism extends IntToObjMonoMorphism<Integer>, ObjToInt
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <S> before関数および合成関数の入力の型
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default <S> ObjToIntMonoMorphism<S> compose(ObjToIntMonoMorphism<S> before) {
 		IntMonoMorphism now = this;

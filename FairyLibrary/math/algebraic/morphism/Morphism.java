@@ -20,6 +20,7 @@ public interface Morphism<S, T> extends java.util.function.Function<S, T>{
 	}
 	/**
 	 * 関数の合成からなる二項演算を返します。
+	 * @param <T> 定義域
 	 * @return 関数の合成を行う二項演算
 	 */
 	public static <T> Associative<Morphism<? super T, T>> composition() {

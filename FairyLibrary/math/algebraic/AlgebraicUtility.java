@@ -8,13 +8,11 @@ public class AlgebraicUtility {
 	private AlgebraicUtility() {
 		throw new AssertionError();
 	}
-	
-	
 
 	@SafeVarargs
 	public static <T> T apply(BinaryOperator<T> operate, T... element) {
 		T ret = element[0];
-		for (int i = 1;i < element.length;++ i) ret = operate.apply(ret, element[i]);
+		for (int i = 1; i < element.length; ++i) ret = operate.apply(ret, element[i]);
 		return ret;
 	}
 

@@ -23,81 +23,43 @@ public interface IntToDoubleMorphism
 		return applyAsDouble((int) operand);
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
-	@Override
-	public default IntToLongMorphism andThen(java.util.function.DoubleToLongFunction after) {
-		return s -> after.applyAsLong(applyAsDouble(s));
-	}
-
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
-	@Override
-	public default IntToDoubleMorphism andThen(java.util.function.DoubleUnaryOperator after) {
-		return s -> after.applyAsDouble(applyAsDouble(s));
-	}
-
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default IntMorphism andThen(java.util.function.DoubleToIntFunction after) {
 		return s -> after.applyAsInt(applyAsDouble(s));
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
-	public default LongToDoubleMorphism compose(java.util.function.LongToIntFunction before) {
-		return s -> applyAsDouble(before.applyAsInt(s));
+	public default IntToLongMorphism andThen(java.util.function.DoubleToLongFunction after) {
+		return s -> after.applyAsLong(applyAsDouble(s));
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
+	@Override
+	public default IntToDoubleMorphism andThen(java.util.function.DoubleUnaryOperator after) {
+		return s -> after.applyAsDouble(applyAsDouble(s));
+	}
+
+	@Override
+	public default <T> IntToObjMorphism<T> andThen(java.util.function.DoubleFunction<? extends T> after) {
+		return s -> after.apply(applyAsDouble(s));
+	}
+
 	@Override
 	public default IntToDoubleMorphism compose(java.util.function.IntUnaryOperator before) {
 		return s -> applyAsDouble(before.applyAsInt(s));
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
+	@Override
+	public default LongToDoubleMorphism compose(java.util.function.LongToIntFunction before) {
+		return s -> applyAsDouble(before.applyAsInt(s));
+	}
+
 	@Override
 	public default DoubleMorphism compose(java.util.function.DoubleToIntFunction before) {
+		return s -> applyAsDouble(before.applyAsInt(s));
+	}
+
+	@Override
+	public default <S> ObjToDoubleMorphism<S> compose(java.util.function.ToIntFunction<? super S> before) {
 		return s -> applyAsDouble(before.applyAsInt(s));
 	}
 }

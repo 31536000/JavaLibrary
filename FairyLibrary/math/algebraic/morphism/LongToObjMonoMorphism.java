@@ -22,8 +22,8 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
+	@Override
 	public default LongToIntMonoMorphism andThen(ObjToIntMonoMorphism<T> after) {
 		LongToObjMonoMorphism<T> now = this;
 		return new LongToIntMonoMorphism() {
@@ -47,8 +47,8 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
+	@Override
 	public default LongMonoMorphism andThen(ObjToLongMonoMorphism<T> after) {
 		LongToObjMonoMorphism<T> now = this;
 		return new LongMonoMorphism() {
@@ -72,8 +72,8 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	 * @param after この関数を適用した後で適用する関数
 	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
 	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
 	 */
+	@Override
 	public default LongToDoubleMonoMorphism andThen(ObjToDoubleMonoMorphism<T> after) {
 		LongToObjMonoMorphism<T> now = this;
 		return new LongToDoubleMonoMorphism() {
@@ -91,27 +91,18 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
-	public default <U> LongToObjMonoMorphism<U> andThen(MonoMorphism<T, U> after) {
+	public default <S> LongToObjMonoMorphism<S> andThen(MonoMorphism<T, S> after) {
 		LongToObjMonoMorphism<T> now = this;
-		return new LongToObjMonoMorphism<U>() {
+		return new LongToObjMonoMorphism<S>() {
 
 			@Override
-			public U apply(long operand) {
+			public S apply(long operand) {
 				return after.apply(now.apply(operand));
 			}
 
 			@Override
-			public ObjToLongEpiMorphism<U> retraction() {
+			public ObjToLongEpiMorphism<S> retraction() {
 				return after.retraction().andThen(now.retraction());
 			}
 
@@ -124,7 +115,6 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjMonoMorphism<T> compose(IntToLongMonoMorphism before) {
 		LongToObjMonoMorphism<T> now = this;
@@ -149,7 +139,6 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjMonoMorphism<T> compose(LongMonoMorphism before) {
 		LongToObjMonoMorphism<T> now = this;
@@ -174,7 +163,6 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjMonoMorphism<T> compose(DoubleToLongMonoMorphism before) {
 		LongToObjMonoMorphism<T> now = this;
@@ -196,23 +184,22 @@ public interface LongToObjMonoMorphism<T> extends MonoMorphism<Long, T>, LongToO
 	/**
 	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
 	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> before関数および合成関数の入力の型
+	 * @param <S> before関数および合成関数の入力の型
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
-	public default <U> MonoMorphism<U, T> compose(ObjToLongMonoMorphism<U> before) {
+	public default <S> MonoMorphism<S, T> compose(ObjToLongMonoMorphism<S> before) {
 		LongToObjMonoMorphism<T> now = this;
-		return new MonoMorphism<U, T>() {
+		return new MonoMorphism<S, T>() {
 
 			@Override
-			public T apply(U operand) {
+			public T apply(S operand) {
 				return now.apply(before.applyAsLong(operand));
 			}
 
 			@Override
-			public EpiMorphism<T, U> retraction() {
+			public EpiMorphism<T, S> retraction() {
 				return now.retraction().andThen(before.retraction());
 			}
 

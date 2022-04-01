@@ -15,10 +15,6 @@ public interface LongToObjIsoMorphism<T>
 		return apply((long) operand);
 	}
 
-	/**
-	 * 逆射を返します。
-	 * @return 逆射
-	 */
 	@Override
 	public ObjToLongIsoMorphism<T> inverse();
 
@@ -32,14 +28,6 @@ public interface LongToObjIsoMorphism<T>
 		return inverse();
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default LongToIntIsoMorphism andThen(ObjToIntIsoMorphism<T> after) {
 		LongToObjIsoMorphism<T> now = this;
@@ -56,14 +44,6 @@ public interface LongToObjIsoMorphism<T>
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default LongIsoMorphism andThen(ObjToLongIsoMorphism<T> after) {
 		LongToObjIsoMorphism<T> now = this;
@@ -80,14 +60,6 @@ public interface LongToObjIsoMorphism<T>
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default LongToDoubleIsoMorphism andThen(ObjToDoubleIsoMorphism<T> after) {
 		LongToObjIsoMorphism<T> now = this;
@@ -104,26 +76,17 @@ public interface LongToObjIsoMorphism<T>
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
-	public default <U> LongToObjIsoMorphism<U> andThen(IsoMorphism<T, U> after) {
+	public default <S> LongToObjIsoMorphism<S> andThen(IsoMorphism<T, S> after) {
 		LongToObjIsoMorphism<T> now = this;
-		return new LongToObjIsoMorphism<U>() {
+		return new LongToObjIsoMorphism<S>() {
 			@Override
-			public U apply(long t) {
+			public S apply(long t) {
 				return after.apply(now.apply(t));
 			}
 
 			@Override
-			public ObjToLongIsoMorphism<U> inverse() {
+			public ObjToLongIsoMorphism<S> inverse() {
 				return after.inverse().andThen(now.inverse());
 			}
 		};
@@ -135,7 +98,6 @@ public interface LongToObjIsoMorphism<T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default IntToObjIsoMorphism<T> compose(IntToLongIsoMorphism before) {
 		LongToObjIsoMorphism<T> now = this;
@@ -159,7 +121,6 @@ public interface LongToObjIsoMorphism<T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjIsoMorphism<T> compose(LongIsoMorphism before) {
 		LongToObjIsoMorphism<T> now = this;
@@ -183,7 +144,6 @@ public interface LongToObjIsoMorphism<T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjIsoMorphism<T> compose(DoubleToLongIsoMorphism before) {
 		LongToObjIsoMorphism<T> now = this;
@@ -204,22 +164,21 @@ public interface LongToObjIsoMorphism<T>
 	/**
 	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
 	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> before関数および合成関数の入力の型
+	 * @param <S> before関数および合成関数の入力の型
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
-	public default <U> IsoMorphism<U, T> compose(ObjToLongIsoMorphism<U> before) {
+	public default <S> IsoMorphism<S, T> compose(ObjToLongIsoMorphism<S> before) {
 		LongToObjIsoMorphism<T> now = this;
-		return new IsoMorphism<U, T>() {
+		return new IsoMorphism<S, T>() {
 			@Override
-			public T apply(U t) {
+			public T apply(S t) {
 				return now.apply(before.apply(t));
 			}
 
 			@Override
-			public IsoMorphism<T, U> inverse() {
+			public IsoMorphism<T, S> inverse() {
 				return now.inverse().andThen(before.inverse());
 			}
 

@@ -24,10 +24,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		return applyAsLong((double) operand);
 	}
 
-	/**
-	 * 逆射を返します。
-	 * @return 逆射
-	 */
 	@Override
 	public LongToDoubleIsoMorphism inverse();
 
@@ -41,14 +37,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		return inverse();
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToIntIsoMorphism andThen(LongToIntIsoMorphism after) {
 		DoubleToLongIsoMorphism now = this;
@@ -65,14 +53,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToLongIsoMorphism andThen(LongIsoMorphism after) {
 		DoubleToLongIsoMorphism now = this;
@@ -89,14 +69,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleIsoMorphism andThen(LongToDoubleIsoMorphism after) {
 		DoubleToLongIsoMorphism now = this;
@@ -113,15 +85,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <T> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default <T> DoubleToObjIsoMorphism<T> andThen(LongToObjIsoMorphism<T> after) {
 		DoubleToLongIsoMorphism now = this;
@@ -138,14 +101,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default IntToLongIsoMorphism compose(IntToDoubleIsoMorphism before) {
 		DoubleToLongIsoMorphism now = this;
@@ -163,14 +118,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default LongIsoMorphism compose(LongToDoubleIsoMorphism before) {
 		DoubleToLongIsoMorphism now = this;
@@ -188,14 +135,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default DoubleToLongIsoMorphism compose(DoubleIsoMorphism before) {
 		DoubleToLongIsoMorphism now = this;
@@ -213,15 +152,6 @@ public interface DoubleToLongIsoMorphism extends DoubleToObjIsoMorphism<Long>, O
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <S> before関数および合成関数の入力の型
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	@Override
 	public default <S> ObjToLongIsoMorphism<S> compose(ObjToDoubleIsoMorphism<S> before) {
 		DoubleToLongIsoMorphism now = this;

@@ -15,10 +15,6 @@ public interface DoubleToObjIsoMorphism<T>
 		return apply((double) operand);
 	}
 
-	/**
-	 * 逆射を返します。
-	 * @return 逆射
-	 */
 	@Override
 	public ObjToDoubleIsoMorphism<T> inverse();
 
@@ -32,14 +28,6 @@ public interface DoubleToObjIsoMorphism<T>
 		return inverse();
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToIntIsoMorphism andThen(ObjToIntIsoMorphism<T> after) {
 		DoubleToObjIsoMorphism<T> now = this;
@@ -56,14 +44,6 @@ public interface DoubleToObjIsoMorphism<T>
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleToLongIsoMorphism andThen(ObjToLongIsoMorphism<T> after) {
 		DoubleToObjIsoMorphism<T> now = this;
@@ -80,14 +60,6 @@ public interface DoubleToObjIsoMorphism<T>
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
 	public default DoubleIsoMorphism andThen(ObjToDoubleIsoMorphism<T> after) {
 		DoubleToObjIsoMorphism<T> now = this;
@@ -104,39 +76,22 @@ public interface DoubleToObjIsoMorphism<T>
 		};
 	}
 
-	/**
-	 * まず入力にこの関数を適用し、次に結果に関数afterを適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> after関数および合成関数の出力の型
-	 * @param after この関数を適用した後で適用する関数
-	 * @return まずこの関数を適用し、次にafter関数を適用する合成関数
-	 * @exception NullPointerException afterがnullの場合
-	 * @see {@link #compose(Function)}
-	 */
 	@Override
-	public default <U> DoubleToObjIsoMorphism<U> andThen(IsoMorphism<T, U> after) {
+	public default <S> DoubleToObjIsoMorphism<S> andThen(IsoMorphism<T, S> after) {
 		DoubleToObjIsoMorphism<T> now = this;
-		return new DoubleToObjIsoMorphism<U>() {
+		return new DoubleToObjIsoMorphism<S>() {
 			@Override
-			public U apply(double t) {
+			public S apply(double t) {
 				return after.apply(now.apply(t));
 			}
 
 			@Override
-			public ObjToDoubleIsoMorphism<U> inverse() {
+			public ObjToDoubleIsoMorphism<S> inverse() {
 				return after.inverse().andThen(now.inverse());
 			}
 		};
 	}
 
-	/**
-	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
-	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param before この関数を適用する前に適用する関数
-	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
-	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
-	 */
 	public default IntToObjIsoMorphism<T> compose(IntToDoubleIsoMorphism before) {
 		DoubleToObjIsoMorphism<T> now = this;
 		return new IntToObjIsoMorphism<T>() {
@@ -159,7 +114,6 @@ public interface DoubleToObjIsoMorphism<T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default LongToObjIsoMorphism<T> compose(LongToDoubleIsoMorphism before) {
 		DoubleToObjIsoMorphism<T> now = this;
@@ -183,7 +137,6 @@ public interface DoubleToObjIsoMorphism<T>
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
 	public default DoubleToObjIsoMorphism<T> compose(DoubleIsoMorphism before) {
 		DoubleToObjIsoMorphism<T> now = this;
@@ -204,22 +157,21 @@ public interface DoubleToObjIsoMorphism<T>
 	/**
 	 * まず入力に関数beforeを適用し、次に結果にこの関数を適用する合成関数を返します。
 	 * いずれかの関数の評価時に例外がスローされた場合、その例外は合成関数の呼出し元に中継されます。
-	 * @param <U> before関数および合成関数の入力の型
+	 * @param <S> before関数および合成関数の入力の型
 	 * @param before この関数を適用する前に適用する関数
 	 * @return まずbefore関数を適用し、次にこの関数を適用する合成関数
 	 * @exception NullPointerException beforeがnullの場合
-	 * @see {@link #andThen(Function)}
 	 */
-	public default <U> IsoMorphism<U, T> compose(ObjToDoubleIsoMorphism<U> before) {
+	public default <S> IsoMorphism<S, T> compose(ObjToDoubleIsoMorphism<S> before) {
 		DoubleToObjIsoMorphism<T> now = this;
-		return new IsoMorphism<U, T>() {
+		return new IsoMorphism<S, T>() {
 			@Override
-			public T apply(U t) {
+			public T apply(S t) {
 				return now.apply(before.apply(t));
 			}
 
 			@Override
-			public IsoMorphism<T, U> inverse() {
+			public IsoMorphism<T, S> inverse() {
 				return now.inverse().andThen(before.inverse());
 			}
 
