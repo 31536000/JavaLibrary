@@ -139,3 +139,8 @@ int nextStatus = HashSet.fold(buff).getStatus(status);
 標準データ構造は、一般によく使われる配列やリストなどを定義し、更に数学的な演算ができるように拡張したものです。
 
 まだ殆ど作られていません。次に作りたいもの: Collection の定義を検討中
+
+# ドキュメント
+ドキュメントのリンクを記載
+
+https://31536000.github.io/JavaLibrary/doc/index.html
